@@ -5,110 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P-PAC Registration Form</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ================= Design System Variables ================= */
         :root {
-            --bg-off-white: #F8F9FA;
-            --text-primary: #111827;
-            --text-secondary: #4B5563;
-            --accent-color: #2563EB; 
-            --success-color: #10B981;
+            --brand-primary: #4F46E5; /* Premium Indigo */
+            --brand-primary-hover: #4338CA;
+            --brand-success: #10B981;
+            --bg-body: #F4F4F5; /* Zinc 100 */
+            --surface-card: #FFFFFF;
+            --surface-input: #FAFAFA;
+            --surface-nested: #F4F4F5;
+            --text-heading: #0F172A; /* Slate 900 */
+            --text-body: #334155; /* Slate 700 */
+            --text-muted: #64748B; /* Slate 500 */
+            --border-light: #E2E8F0; /* Slate 200 */
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.05);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ================= Global Styles ================= */
         body {
             font-family: 'Inter', 'Sarabun', sans-serif;
-            background-color: var(--bg-off-white);
-            color: var(--text-primary);
+            background-color: var(--bg-body);
+            background-image: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F4F4F5 60%);
+            color: var(--text-body);
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
-            padding: 40px 15px;
+            padding: 60px 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: var(--bg-off-white); }
-        .ambient-bg::before, .ambient-bg::after { content: ''; position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35; }
-        .ambient-bg::before { width: 60vw; height: 60vw; background: #E0E7FF; top: -10%; left: -10%; }
-        .ambient-bg::after { width: 40vw; height: 40vw; background: #F3E8FF; bottom: -10%; right: -10%; }
-
+        /* ================= Segmented Control (Language Switcher) ================= */
         .lang-switch {
-            position: absolute; top: 20px; right: 20px; z-index: 100;
-            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.9); padding: 5px; border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: absolute; top: 30px; right: 30px; z-index: 100;
+            background: var(--border-light);
+            padding: 4px; border-radius: 30px;
+            display: flex; gap: 4px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
         }
-        .lang-btn { border: none; background: transparent; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s; color: var(--text-secondary); }
-        .lang-btn.active { background-color: var(--accent-color); color: white; }
+        .lang-btn {
+            border: none; background: transparent; padding: 8px 20px;
+            border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition);
+            color: var(--text-muted);
+        }
+        .lang-btn.active {
+            background-color: var(--surface-card); color: var(--text-heading);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-        .header-text { text-align: center; margin-bottom: 30px; max-width: 900px; }
-        .header-text h1 { font-size: 2.8rem; font-weight: 700; letter-spacing: 1px; color: var(--accent-color); margin-bottom: 10px; }
-        .header-text h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 5px; }
+        /* ================= Typography & Header ================= */
+        .header-text { text-align: center; margin-bottom: 50px; max-width: 700px; }
+        .header-text h1 { 
+            font-size: 3rem; font-weight: 700; letter-spacing: -0.03em; 
+            color: var(--text-heading); margin-bottom: 12px; 
+        }
+        .header-text h3 { font-size: 1.15rem; font-weight: 500; color: var(--text-body); margin-bottom: 8px; }
+        .header-text h4 { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
 
-        /* --- Step Bar Styling --- */
+        /* ================= Step Progress Bar ================= */
         .step-wrapper {
-            width: 100%; max-width: 800px; margin-bottom: 40px;
+            width: 100%; max-width: 700px; margin-bottom: 50px;
             display: flex; justify-content: space-between; position: relative;
         }
         .step-wrapper::before {
-            content: ''; position: absolute; top: 20px; left: 0; 
-            width: 100%; height: 2px; background: #E5E7EB; z-index: 1;
+            content: ''; position: absolute; top: 16px; left: 0; 
+            width: 100%; height: 2px; background: var(--border-light); z-index: 1;
         }
         .step-progress-line {
-            content: ''; position: absolute; top: 20px; left: 0; 
-            width: 0%; height: 2px; background: var(--accent-color); z-index: 2;
-            transition: width 0.4s ease;
+            content: ''; position: absolute; top: 16px; left: 0; 
+            width: 0%; height: 2px; background: var(--brand-primary); z-index: 2;
+            transition: width 0.5s ease-in-out;
         }
-        .step-item {
-            position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; width: 100%;
-        }
+        .step-item { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; width: 60px; }
         .step-icon {
-            width: 40px; height: 40px; border-radius: 50%; background: white;
-            border: 2px solid #E5E7EB; display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem; font-weight: 600; color: #9CA3AF; transition: all 0.4s;
+            width: 34px; height: 34px; border-radius: 50%; background: var(--surface-card);
+            border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-muted); transition: var(--transition);
         }
         .step-label {
-            margin-top: 10px; font-size: 0.75rem; font-weight: 500; color: #9CA3AF;
-            text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.4s;
-            text-align: center;
+            margin-top: 12px; font-size: 0.75rem; font-weight: 500; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition);
+            text-align: center; white-space: nowrap;
         }
-        .step-item.active .step-icon { border-color: var(--accent-color); background: var(--accent-color); color: white; box-shadow: 0 0 15px rgba(37, 99, 235, 0.3); }
-        .step-item.active .step-label { color: var(--accent-color); font-weight: 600; }
-        .step-item.completed .step-icon { border-color: var(--success-color); background: var(--success-color); color: white; }
-        .step-item.completed .step-label { color: var(--success-color); }
+        .step-item.active .step-icon { border-color: var(--brand-primary); background: var(--brand-primary); color: white; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15); }
+        .step-item.active .step-label { color: var(--text-heading); font-weight: 600; }
+        .step-item.completed .step-icon { border-color: var(--brand-primary); background: var(--brand-primary); color: white; }
+        .step-item.completed .step-label { color: var(--brand-primary); }
 
-        /* --- Glass Card --- */
+        /* ================= Premium Card & Forms ================= */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 1); border-radius: 24px; padding: 40px 50px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05); max-width: 900px; width: 100%;
+            background: var(--surface-card);
+            border-radius: var(--radius-xl); padding: 50px 60px;
+            box-shadow: var(--shadow-soft); max-width: 850px; width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .step-content { display: none; }
-        .step-content.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .step-content.active { display: block; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .form-label { font-weight: 500; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-primary); }
-        .form-control, .form-select { background-color: rgba(255, 255, 255, 0.8); border: 1px solid #D1D5DB; border-radius: 10px; padding: 12px 16px; }
-        .form-control:focus, .form-select:focus { border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-        .sub-text { font-size: 0.8rem; color: #6B7280; font-weight: 400; display: block; margin-top: 4px; }
+        .form-label { font-weight: 500; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-heading); }
+        
+        .form-control, .form-select { 
+            background-color: var(--surface-input); 
+            border: 1px solid var(--border-light); 
+            border-radius: var(--radius-md); 
+            padding: 14px 18px; font-size: 1rem; color: var(--text-heading);
+            transition: var(--transition); box-shadow: var(--shadow-sm);
+        }
+        .form-control::placeholder { color: #94A3B8; font-weight: 300; }
+        .form-control:hover, .form-select:hover { border-color: #CBD5E1; }
+        .form-control:focus, .form-select:focus { 
+            background-color: var(--surface-card);
+            border-color: var(--brand-primary); 
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); 
+            outline: none;
+        }
 
-        .btn-next { background-color: var(--accent-color); color: white; padding: 12px 35px; border-radius: 50px; border: none; font-weight: 500; transition: all 0.3s; }
-        .btn-next:hover { transform: translateY(-2px); background-color: #1D4ED8; color: white; }
-        .btn-back { color: var(--text-secondary); background: transparent; border: 1px solid #D1D5DB; padding: 12px 30px; border-radius: 50px; transition: all 0.3s; }
-        .btn-back:hover { background: #F3F4F6; }
+        .sub-text { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; display: block; margin-top: 6px; line-height: 1.4; }
 
+        /* ================= Nested Cards (Dynamic Content) ================= */
+        .nested-card {
+            background: var(--surface-nested);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 30px; margin-bottom: 24px;
+        }
+        .nested-card h5 { color: var(--brand-primary); font-weight: 600; font-size: 1.05rem; margin-bottom: 24px; }
+
+        /* ================= Buttons ================= */
+        .btn-next { 
+            background-color: var(--brand-primary); color: white; 
+            padding: 14px 40px; border-radius: 50px; border: none; 
+            font-weight: 500; font-size: 1rem; letter-spacing: 0.02em;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25); transition: var(--transition); 
+        }
+        .btn-next:hover { transform: translateY(-2px); background-color: var(--brand-primary-hover); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3); color: white;}
+        
+        .btn-back { 
+            color: var(--text-body); background: transparent; border: 1px solid var(--border-light); 
+            padding: 14px 35px; border-radius: 50px; font-weight: 500; font-size: 1rem;
+            transition: var(--transition); 
+        }
+        .btn-back:hover { background: var(--bg-body); color: var(--text-heading); }
+
+        .btn-submit { background-color: var(--text-heading); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2); }
+        .btn-submit:hover { background-color: #000; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3); }
+
+        /* ================= Checkboxes ================= */
+        .form-check { margin-bottom: 12px; }
+        .form-check-input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; border-color: #CBD5E1; cursor: pointer; }
+        .form-check-input:checked { background-color: var(--brand-primary); border-color: var(--brand-primary); }
+        .form-check-label { color: var(--text-body); cursor: pointer; margin-left: 8px; }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .glass-card { padding: 30px 20px; }
+            body { padding: 80px 15px 40px 15px; }
+            .glass-card { padding: 40px 24px; }
             .header-text h1 { font-size: 2.2rem; }
-            .step-label { display: none; } /* Hide labels on mobile for space */
-            .step-wrapper { max-width: 90%; }
+            .step-label { display: none; }
+            .step-wrapper { max-width: 85%; margin-bottom: 40px; }
+            .nested-card { padding: 20px; }
+            .lang-switch { top: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
-
-    <div class="ambient-bg"></div>
 
     <div class="lang-switch">
         <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
@@ -118,29 +189,25 @@
     <div class="header-text">
         <h1>P-PAC</h1>
         <h3 data-i18n="header-desc">ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา</h3>
+        <h4 data-i18n="header-title">แบบฟอร์มลงทะเบียนเข้ารับบริการวิเคราะห์ศักยภาพบุคคล</h4>
     </div>
 
     <div class="step-wrapper">
         <div class="step-progress-line" id="stepLine"></div>
         <div class="step-item active" id="si-1">
-            <div class="step-icon">1</div>
-            <div class="step-label" data-i18n="s-bar-1">การจอง</div>
+            <div class="step-icon">1</div><div class="step-label" data-i18n="s-bar-1">การจอง</div>
         </div>
         <div class="step-item" id="si-2">
-            <div class="step-icon">2</div>
-            <div class="step-label" data-i18n="s-bar-2">ข้อมูลส่วนตัว</div>
+            <div class="step-icon">2</div><div class="step-label" data-i18n="s-bar-2">ข้อมูลส่วนตัว</div>
         </div>
         <div class="step-item" id="si-3">
-            <div class="step-icon">3</div>
-            <div class="step-label" data-i18n="s-bar-3">การติดต่อ</div>
+            <div class="step-icon">3</div><div class="step-label" data-i18n="s-bar-3">การติดต่อ</div>
         </div>
         <div class="step-item" id="si-4">
-            <div class="step-icon">4</div>
-            <div class="step-label" data-i18n="s-bar-4">ช่องทาง</div>
+            <div class="step-icon">4</div><div class="step-label" data-i18n="s-bar-4">ช่องทาง</div>
         </div>
         <div class="step-item" id="si-5">
-            <div class="step-icon">5</div>
-            <div class="step-label" data-i18n="s-bar-5">ประวัติ</div>
+            <div class="step-icon">5</div><div class="step-label" data-i18n="s-bar-5">ประวัติ</div>
         </div>
     </div>
 
@@ -149,8 +216,8 @@
             
             <div id="step1" class="step-content active">
                 <div class="mb-5">
-                    <label class="form-label" style="font-size: 1.1rem;"><span data-i18n="lbl-count">จำนวนผู้เข้ารับบริการ</span> <span class="text-danger">*</span></label>
-                    <select class="form-select form-select-lg mt-2" id="customerCount" required>
+                    <label class="form-label mb-3" style="font-size: 1.1rem;"><span data-i18n="lbl-count">จำนวนผู้เข้ารับบริการ</span> <span class="text-danger">*</span></label>
+                    <select class="form-select form-select-lg" id="customerCount" required>
                         <option value="1" data-i18n="opt-c1">1 ท่าน</option><option value="2" data-i18n="opt-c2">2 ท่าน</option>
                         <option value="3" data-i18n="opt-c3">3 ท่าน</option><option value="4" data-i18n="opt-c4">4 ท่าน</option>
                         <option value="5" data-i18n="opt-c5">5 ท่าน</option><option value="6" data-i18n="opt-c6">6 ท่าน</option>
@@ -163,7 +230,7 @@
 
             <div id="step2" class="step-content">
                 <div id="dynamicCustomersContainer"></div>
-                <div class="d-flex justify-content-between mt-4">
+                <div class="d-flex justify-content-between mt-5">
                     <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(1)">ย้อนกลับ</button>
                     <button type="button" class="btn-next" data-i18n="btn-next" onclick="goToStep(3)">ถัดไป ➔</button>
                 </div>
@@ -173,14 +240,14 @@
                 <div class="row">
                     <div class="col-md-12 mb-4">
                         <label class="form-label"><span data-i18n="lbl-phone">เบอร์โทรศัพท์</span> <span class="text-danger">*</span></label>
-                        <span class="sub-text text-danger mb-2" data-i18n="sub-phone">* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง</span>
+                        <span class="sub-text text-danger mb-3" data-i18n="sub-phone">* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง</span>
                         <input type="tel" class="form-control" required maxlength="10">
                     </div>
-                    <div class="col-md-12 mb-3"><label class="form-label"><span data-i18n="lbl-addr">ที่อยู่จัดส่งเอกสาร</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required></div>
-                    <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
-                    <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
-                    <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-prov">จังหวัด</label><input type="text" class="form-control" required></div>
-                    <div class="col-md-6 mb-3"><label class="form-label"><span data-i18n="lbl-zip">รหัสไปรษณีย์</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
+                    <div class="col-md-12 mb-4"><label class="form-label"><span data-i18n="lbl-addr">ที่อยู่จัดส่งเอกสาร</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-4"><label class="form-label" data-i18n="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-4"><label class="form-label" data-i18n="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-4"><label class="form-label" data-i18n="lbl-prov">จังหวัด</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-4"><label class="form-label"><span data-i18n="lbl-zip">รหัสไปรษณีย์</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(2)">ย้อนกลับ</button>
@@ -190,7 +257,7 @@
 
             <div id="step4" class="step-content">
                 <div class="mb-4">
-                    <label class="form-label mb-3"><span data-i18n="lbl-source">ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)</span></label>
+                    <label class="form-label mb-4" style="font-size: 1.05rem;"><span data-i18n="lbl-source">ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)</span></label>
                     <div class="row g-3">
                         <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div></div>
                         <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div></div>
@@ -202,9 +269,9 @@
                         <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="CP"><label class="form-check-label" data-i18n="cb-cp">พนักงานเครือ CP แนะนำ</label></div></div>
                         <div class="col-md-12"><div class="form-check"><input class="form-check-input" type="checkbox" value="Training"><label class="form-check-label" data-i18n="cb-train">เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม</label></div></div>
                     </div>
-                    <div class="mt-3 d-flex align-items-center"><span class="me-2" data-i18n="lbl-other">อื่นๆ:</span><input type="text" class="form-control" style="max-width: 300px;"></div>
+                    <div class="mt-4 d-flex align-items-center"><span class="me-3 text-muted fw-medium" data-i18n="lbl-other">อื่นๆ:</span><input type="text" class="form-control" style="max-width: 350px;"></div>
                 </div>
-                <div class="d-flex justify-content-between mt-4">
+                <div class="d-flex justify-content-between mt-5">
                     <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(3)">ย้อนกลับ</button>
                     <button type="button" class="btn-next" data-i18n="btn-next" onclick="goToStep(5)">ถัดไป ➔</button>
                 </div>
@@ -212,17 +279,17 @@
 
             <div id="step5" class="step-content">
                 <div class="mb-4">
-                    <label class="form-label"><span data-i18n="lbl-family">ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่</span> <span class="text-danger">*</span></label>
-                    <select class="form-select mt-2" id="hasFamily" onchange="toggleFamilySection()" required>
+                    <label class="form-label mb-3" style="font-size: 1.05rem;"><span data-i18n="lbl-family">ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่</span> <span class="text-danger">*</span></label>
+                    <select class="form-select" id="hasFamily" onchange="toggleFamilySection()" required>
                         <option value="" data-i18n="opt-sel">-- โปรดเลือก --</option>
                         <option value="yes" data-i18n="opt-yes">มี</option>
                         <option value="no" data-i18n="opt-no">ไม่มี</option>
                     </select>
                 </div>
                 
-                <div id="familyDetails" style="display: none; background: rgba(0,0,0,0.02); padding: 25px; border-radius: 15px;">
-                    <label class="form-label" data-i18n="lbl-fam-count">จำนวนสมาชิก</label>
-                    <select class="form-select mb-4" id="familyCount" onchange="generateFamilyFields()">
+                <div id="familyDetails" class="nested-card" style="display: none;">
+                    <label class="form-label mb-3" data-i18n="lbl-fam-count">จำนวนสมาชิก</label>
+                    <select class="form-select mb-4" id="familyCount" onchange="generateFamilyFields()" style="max-width: 200px;">
                         <option value="1">1</option><option value="2">2</option><option value="3">3</option>
                         <option value="4">4</option><option value="5">5</option><option value="6">6</option>
                         <option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
@@ -232,7 +299,7 @@
 
                 <div class="d-flex justify-content-between mt-5">
                     <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(4)">ย้อนกลับ</button>
-                    <button type="submit" class="btn-next" data-i18n="btn-submit" style="background-color: var(--success-color);">✅ ยืนยันการส่งข้อมูล</button>
+                    <button type="submit" class="btn-next btn-submit" data-i18n="btn-submit">✅ ยืนยันการส่งข้อมูล</button>
                 </div>
             </div>
         </form>
@@ -244,7 +311,7 @@
                 "header-desc": "ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา",
                 "s-bar-1": "การจอง", "s-bar-2": "ข้อมูลส่วนตัว", "s-bar-3": "การติดต่อ", "s-bar-4": "ช่องทาง", "s-bar-5": "ประวัติ",
                 "lbl-count": "จำนวนผู้เข้ารับบริการ", "opt-c1": "1 ท่าน", "opt-c2": "2 ท่าน", "opt-c3": "3 ท่าน", "opt-c4": "4 ท่าน", "opt-c5": "5 ท่าน", "opt-c6": "6 ท่าน",
-                "btn-start": "เริ่มลงทะเบียน ➔", "btn-next": "ถัดไป ➔", "btn-back": "ย้อนกลับ", "btn-submit": "✅ ยืนยันการส่งข้อมูล",
+                "btn-start": "เริ่มลงทะเบียน ➔", "btn-next": "ถัดไป ➔", "btn-back": "ย้อนกลับ", "btn-submit": "ยืนยันการส่งข้อมูล",
                 "lbl-phone": "เบอร์โทรศัพท์", "sub-phone": "* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง", "lbl-addr": "ที่อยู่ (บ้านเลขที่/หมู่บ้าน/ถนน)", "lbl-subdist": "แขวง/ตำบล", "lbl-dist": "เขต/อำเภอ", "lbl-prov": "จังหวัด", "lbl-zip": "รหัสไปรษณีย์",
                 "lbl-source": "ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)", "lbl-other": "อื่นๆ:", "cb-poster": "โปสเตอร์โฆษณา", "cb-rec": "มีผู้แนะนำ", "cb-cp": "พนักงานเครือ CP แนะนำ", "cb-train": "เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม",
                 "lbl-family": "ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่", "opt-sel": "-- โปรดเลือก --", "opt-yes": "มี", "opt-no": "ไม่มี", "lbl-fam-count": "จำนวนสมาชิก",
@@ -258,12 +325,12 @@
                 "header-desc": "Panyatara Potential Analysis Center: Dermatoglyphics Potential Analysis Service",
                 "s-bar-1": "Booking", "s-bar-2": "Personal", "s-bar-3": "Contact", "s-bar-4": "Source", "s-bar-5": "History",
                 "lbl-count": "Number of Customers", "opt-c1": "1 Person", "opt-c2": "2 Persons", "opt-c3": "3 Persons", "opt-c4": "4 Persons", "opt-c5": "5 Persons", "opt-c6": "6 Persons",
-                "btn-start": "Start ➔", "btn-next": "Next ➔", "btn-back": "Back", "btn-submit": "✅ Submit Form",
+                "btn-start": "Start ➔", "btn-next": "Next ➔", "btn-back": "Back", "btn-submit": "Submit Registration",
                 "lbl-phone": "Mobile No.", "sub-phone": "* For users under 20, please provide parent's phone number", "lbl-addr": "Address (No./Village/Street)", "lbl-subdist": "Sub-district", "lbl-dist": "District", "lbl-prov": "Province", "lbl-zip": "Zip Code",
                 "lbl-source": "How did you hear about us?", "lbl-other": "Other:", "cb-poster": "Poster Advertising", "cb-rec": "Referral", "cb-cp": "CP Group Staff", "cb-train": "Training Course",
-                "lbl-family": "Any family members used our services?", "opt-sel": "-- Select --", "opt-yes": "Yes", "opt-no": "No", "lbl-fam-count": "Family size",
+                "lbl-family": "Any family members used our services?", "opt-sel": "-- Select --", "opt-yes": "Yes", "opt-no": "No", "lbl-fam-count": "Number of Members",
                 "dyn-title": "Customer", "dyn-fam-title": "Person", "dyn-fam-placeholder": "Name / Relationship",
-                "f-prefix": "Title", "f-name": "Full Name", "f-email": "Email", "f-dob": "Date of Birth", "f-id": "ID Number", 
+                "f-prefix": "Title", "f-name": "Full Name", "f-email": "Email Address", "f-dob": "Date of Birth", "f-id": "ID Number", 
                 "f-id-sub": "*If unknown, enter zero (0) 13 times", "f-career": "Career", "f-school": "School Name", "f-office": "Office", "f-office-sub": "**Optional", "f-pos": "Position", "f-comp": "Company",
                 "arr-prefix": ["-- Select --", "Master", "Miss", "Mr.", "Mrs.", "Ms.", "Other"],
                 "arr-career": ["-- Select Career --", "Student", "Teacher/School staff", "Househusband / Housewife", "Gov / State Officer", "Company Employee", "Self-Employee", "Freelance", "Other"]
@@ -319,28 +386,51 @@
             officeDiv.style.display = (val && val != "1" && val != "3") ? 'block' : 'none';
         }
 
+        function checkTitle(selectObj, index) {
+            const otherDiv = document.getElementById(`title-other-${index}`);
+            if (selectObj.value === "Other") {
+                otherDiv.style.display = "block";
+                otherDiv.querySelector('input').required = true;
+            } else {
+                otherDiv.style.display = "none";
+                otherDiv.querySelector('input').required = false;
+            }
+        }
+
         function generateCustomerFields() {
             const count = document.getElementById('customerCount').value;
             const container = document.getElementById('dynamicCustomersContainer');
             const lang = translations[currentLang];
             let prefixOptions = "";
-            lang["arr-prefix"].forEach(opt => prefixOptions += `<option value="${opt}">${opt}</option>`);
+            lang["arr-prefix"].forEach(opt => prefixOptions += `<option value="${opt === 'Other' ? 'Other' : opt}">${opt}</option>`);
             let careerOptions = "";
             lang["arr-career"].forEach((opt, idx) => careerOptions += `<option value="${idx === 0 ? '' : idx}">${opt}</option>`);
+            
             container.innerHTML = ''; 
             for(let i = 1; i <= count; i++) {
                 container.innerHTML += `
-                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.6); border: 1px solid #E5E7EB; border-radius: 16px;">
-                        <h5 class="mb-4" style="color: var(--accent-color); font-weight: 600;">${lang["dyn-title"]} ${i}</h5>
+                    <div class="nested-card">
+                        <h5>${lang["dyn-title"]} ${i}</h5>
                         <div class="row">
-                            <div class="col-md-4 mb-3"><label class="form-label">${lang["f-prefix"]} *</label><select class="form-select" required>${prefixOptions}</select></div>
-                            <div class="col-md-8 mb-3"><label class="form-label">${lang["f-name"]} *</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">${lang["f-email"]} *</label><input type="email" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">${lang["f-dob"]} *</label><input type="date" class="form-control" required></div>
-                            <div class="col-md-12 mb-3"><label class="form-label">${lang["f-id"]} *</label><span class="sub-text text-danger mb-2">${lang["f-id-sub"]}</span><input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}"></div>
-                            <div class="col-md-12 mb-3"><label class="form-label">${lang["f-career"]} *</label><select class="form-select" onchange="toggleCareerFields(this, ${i})" required>${careerOptions}</select></div>
+                            <div class="col-md-4 mb-4">
+                                <label class="form-label">${lang["f-prefix"]} <span class="text-danger">*</span></label>
+                                <select class="form-select" onchange="checkTitle(this, ${i})" required>${prefixOptions}</select>
+                                <div id="title-other-${i}" style="display:none; margin-top:12px;"><input type="text" class="form-control" placeholder="..."></div>
+                            </div>
+                            <div class="col-md-8 mb-4"><label class="form-label">${lang["f-name"]} <span class="text-danger">*</span></label><input type="text" class="form-control" required></div>
+                            <div class="col-md-6 mb-4"><label class="form-label">${lang["f-email"]} <span class="text-danger">*</span></label><input type="email" class="form-control" placeholder="mail@example.com" required></div>
+                            <div class="col-md-6 mb-4"><label class="form-label">${lang["f-dob"]} <span class="text-danger">*</span></label><input type="date" class="form-control" required></div>
+                            <div class="col-md-12 mb-4">
+                                <label class="form-label">${lang["f-id"]} <span class="text-danger">*</span></label>
+                                <span class="sub-text text-danger mb-2">${lang["f-id-sub"]}</span>
+                                <input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}">
+                            </div>
+                            <div class="col-md-12 mb-4"><label class="form-label">${lang["f-career"]} <span class="text-danger">*</span></label><select class="form-select" onchange="toggleCareerFields(this, ${i})" required>${careerOptions}</select></div>
                             <div class="col-md-12 mb-3" id="career-student-${i}" style="display: none;"><label class="form-label">${lang["f-school"]}</label><input type="text" class="form-control"></div>
-                            <div class="col-md-12 mb-3" id="career-office-${i}" style="display: none;"><label class="form-label">${lang["f-office"]} <span class="text-muted fw-normal">${lang["f-office-sub"]}</span></label><div class="row"><div class="col-md-6 mb-2"><input type="text" class="form-control" placeholder="${lang["f-pos"]}"></div><div class="col-md-6"><input type="text" class="form-control" placeholder="${lang["f-comp"]}"></div></div></div>
+                            <div class="col-md-12 mb-3" id="career-office-${i}" style="display: none;">
+                                <label class="form-label">${lang["f-office"]} <span class="text-muted fw-normal">${lang["f-office-sub"]}</span></label>
+                                <div class="row g-3"><div class="col-md-6"><input type="text" class="form-control" placeholder="${lang["f-pos"]}"></div><div class="col-md-6"><input type="text" class="form-control" placeholder="${lang["f-comp"]}"></div></div>
+                            </div>
                         </div>
                     </div>`;
             }
@@ -358,7 +448,12 @@
             const lang = translations[currentLang];
             container.innerHTML = '';
             for(let i = 1; i <= count; i++) {
-                container.innerHTML += `<div class="mb-3"><label class="form-label">${lang["dyn-fam-title"]} ${i}</label><input type="text" class="form-control" placeholder="${lang["dyn-fam-placeholder"]}"></div>`;
+                let ord = i;
+                if (currentLang === 'en') {
+                    let s = ["th", "st", "nd", "rd"], v = i % 100;
+                    ord = i + (s[(v - 20) % 10] || s[v] || s[0]);
+                }
+                container.innerHTML += `<div class="mb-3"><label class="form-label">${lang["dyn-fam-title"]} ${ord}</label><input type="text" class="form-control" placeholder="${lang["dyn-fam-placeholder"]}"></div>`;
             }
         }
 
