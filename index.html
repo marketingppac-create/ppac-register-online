@@ -1,348 +1,1078 @@
-<!-- ใช้แทนไฟล์เดิมได้เลย -->
-<style>
-:root{
-  --bg:#f7f9fc;
-  --card:#ffffffcc;
-  --text:#0f172a;
-  --muted:#64748b;
-  --brand:#0085FD;
-  --brand2:#ffcd00;
-  --line:#e5eaf3;
-  --success:#12b981;
-  --shadow:0 24px 70px rgba(15,23,42,.10);
-}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P-PAC Premium Registration Form</title>
 
-*{box-sizing:border-box}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-body{
-  font-family:'Inter','Sarabun',sans-serif;
-  margin:0;
-  min-height:100vh;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(0,133,253,.16), transparent 32%),
-    radial-gradient(circle at bottom right, rgba(255,205,0,.20), transparent 30%),
-    linear-gradient(135deg,#fbfdff,#f3f7fb);
-  padding:48px 18px;
-}
+  <style>
+    :root {
+      --brand: #0085FD;
+      --brand-dark: #0068d6;
+      --brand-soft: rgba(0, 133, 253, .12);
+      --yellow: #ffcd00;
+      --yellow-soft: rgba(255, 205, 0, .18);
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e4ebf5;
+      --surface: rgba(255, 255, 255, .78);
+      --surface-strong: rgba(255, 255, 255, .92);
+      --success: #12b981;
+      --danger: #ef4444;
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --shadow-soft: 0 24px 70px rgba(15, 23, 42, .10);
+      --shadow-brand: 0 18px 44px rgba(0, 133, 253, .22);
+    }
 
-/* Background */
-.ambient-bg{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  overflow:hidden;
-}
-.ambient-bg::before{
-  content:"";
-  position:absolute;
-  width:520px;
-  height:520px;
-  border-radius:50%;
-  background:rgba(0,133,253,.10);
-  filter:blur(80px);
-  top:-160px;
-  left:-140px;
-}
-.ambient-bg::after{
-  content:"";
-  position:absolute;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  background:rgba(255,205,0,.18);
-  filter:blur(90px);
-  right:-120px;
-  bottom:-120px;
-}
+    * { box-sizing: border-box; }
 
-/* Language */
-.lang-switch{
-  position:fixed;
-  top:22px;
-  right:22px;
-  z-index:50;
-  display:flex;
-  gap:6px;
-  padding:6px;
-  border-radius:999px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.85);
-  box-shadow:0 12px 30px rgba(15,23,42,.08);
-}
-.lang-btn{
-  border:0;
-  padding:8px 16px;
-  border-radius:999px;
-  background:transparent;
-  font-weight:700;
-  font-size:.82rem;
-  color:var(--muted);
-  transition:.25s;
-}
-.lang-btn.active{
-  background:var(--brand);
-  color:white;
-  box-shadow:0 8px 20px rgba(0,133,253,.25);
-}
+    html { scroll-behavior: smooth; }
 
-/* Header */
-.header-text{
-  max-width:920px;
-  margin:0 auto 34px;
-  text-align:center;
-}
-.header-text h1{
-  font-size:clamp(2.5rem,6vw,4.6rem);
-  letter-spacing:-.06em;
-  font-weight:800;
-  margin:0;
-  background:linear-gradient(135deg,var(--brand),#005fc9);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.header-text h3{
-  margin-top:10px;
-  font-size:1.05rem;
-  line-height:1.7;
-  color:var(--muted);
-  font-weight:500;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', 'Sarabun', sans-serif;
+      color: var(--ink);
+      background: #f7fbff;
+      overflow-x: hidden;
+      padding: 44px 18px 56px;
+    }
 
-/* Stepper */
-.step-wrapper{
-  max-width:920px;
-  margin:0 auto 28px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  position:relative;
-  gap:8px;
-}
-.step-wrapper::before{
-  content:"";
-  position:absolute;
-  top:22px;
-  left:8%;
-  right:8%;
-  height:3px;
-  background:var(--line);
-  border-radius:999px;
-}
-.step-progress-line{
-  position:absolute;
-  top:22px;
-  left:8%;
-  height:3px;
-  width:0%;
-  max-width:84%;
-  background:linear-gradient(90deg,var(--brand),var(--brand2));
-  border-radius:999px;
-  transition:.45s ease;
-}
-.step-item{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-.step-icon{
-  width:46px;
-  height:46px;
-  margin:0 auto;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:white;
-  border:2px solid var(--line);
-  color:#94a3b8;
-  font-weight:800;
-  box-shadow:0 8px 22px rgba(15,23,42,.06);
-  transition:.3s;
-}
-.step-label{
-  margin-top:10px;
-  font-size:.76rem;
-  font-weight:700;
-  color:#94a3b8;
-}
-.step-item.active .step-icon{
-  background:var(--brand);
-  color:white;
-  border-color:var(--brand);
-  transform:translateY(-3px) scale(1.04);
-  box-shadow:0 16px 32px rgba(0,133,253,.28);
-}
-.step-item.active .step-label{color:var(--brand)}
-.step-item.completed .step-icon{
-  background:var(--success);
-  color:white;
-  border-color:var(--success);
-}
-.step-item.completed .step-label{color:var(--success)}
+    /* ===================== PREMIUM BACKGROUND ===================== */
+    .lux-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(0, 133, 253, .20), transparent 28%),
+        radial-gradient(circle at 88% 20%, rgba(255, 205, 0, .22), transparent 24%),
+        radial-gradient(circle at 48% 92%, rgba(125, 211, 252, .20), transparent 30%),
+        linear-gradient(135deg, #fbfdff 0%, #f5f9ff 45%, #eef7ff 100%);
+    }
 
-/* Main Card */
-.glass-card{
-  max-width:920px;
-  margin:0 auto;
-  padding:42px;
-  border-radius:32px;
-  background:var(--card);
-  backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,.88);
-  box-shadow:var(--shadow);
-  animation:cardIn .5s ease both;
-}
-@keyframes cardIn{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:none}
-}
+    .gradient-sphere {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(86px);
+      opacity: .72;
+      animation: floatOrb 14s ease-in-out infinite;
+      will-change: transform;
+    }
 
-.step-content{display:none}
-.step-content.active{
-  display:block;
-  animation:fadeUp .35s ease both;
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:none}
-}
+    .sphere-1 {
+      width: 520px;
+      height: 520px;
+      background: rgba(0, 133, 253, .34);
+      top: -190px;
+      left: -150px;
+    }
 
-/* Form */
-.form-label{
-  font-size:.92rem;
-  font-weight:700;
-  color:#172033;
-  margin-bottom:8px;
-}
-.sub-text{
-  display:block;
-  font-size:.8rem;
-  color:var(--muted);
-  margin-top:4px;
-}
-.form-control,
-.form-select{
-  min-height:52px;
-  border-radius:16px;
-  border:1px solid #dbe3ef;
-  background:rgba(255,255,255,.88);
-  padding:13px 16px;
-  font-size:.96rem;
-  transition:.22s;
-}
-.form-control:hover,
-.form-select:hover{
-  border-color:#b8c7dd;
-}
-.form-control:focus,
-.form-select:focus{
-  border-color:var(--brand);
-  box-shadow:0 0 0 5px rgba(0,133,253,.13);
-}
+    .sphere-2 {
+      width: 440px;
+      height: 440px;
+      background: rgba(255, 205, 0, .35);
+      top: 12%;
+      right: -150px;
+      animation-delay: -4s;
+    }
 
-/* Checkbox */
-.form-check{
-  padding:16px 18px 16px 44px;
-  background:white;
-  border:1px solid #e6edf6;
-  border-radius:18px;
-  min-height:56px;
-  box-shadow:0 8px 24px rgba(15,23,42,.04);
-}
-.form-check-input{
-  margin-left:-28px;
-  margin-top:4px;
-  width:18px;
-  height:18px;
-  border-color:#cbd5e1;
-}
-.form-check-input:checked{
-  background-color:var(--brand);
-  border-color:var(--brand);
-}
-.form-check-label{
-  font-weight:600;
-  color:#26344d;
-}
+    .sphere-3 {
+      width: 380px;
+      height: 380px;
+      background: rgba(56, 189, 248, .24);
+      bottom: -140px;
+      left: 34%;
+      animation-delay: -7s;
+    }
 
-/* Dynamic customer cards */
-#dynamicCustomersContainer > div{
-  background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.72)) !important;
-  border:1px solid #e6edf6 !important;
-  border-radius:24px !important;
-  box-shadow:0 14px 36px rgba(15,23,42,.06);
-}
-#dynamicCustomersContainer h5{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 14px;
-  border-radius:999px;
-  background:rgba(0,133,253,.09);
-  color:var(--brand) !important;
-}
+    .sphere-4 {
+      width: 260px;
+      height: 260px;
+      background: rgba(168, 85, 247, .12);
+      top: 46%;
+      left: 9%;
+      animation-delay: -10s;
+    }
 
-/* Family box */
-#familyDetails{
-  background:linear-gradient(180deg,#ffffff,#f8fbff) !important;
-  border:1px solid #e6edf6;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
-}
+    .mesh-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .62) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .62) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 28%, black 0%, transparent 74%);
+      opacity: .38;
+    }
 
-/* Buttons */
-.btn-next,
-.btn-back{
-  min-height:50px;
-  border-radius:999px;
-  padding:12px 28px;
-  font-weight:800;
-  letter-spacing:-.01em;
-  transition:.25s;
-}
-.btn-next{
-  border:0;
-  color:white;
-  background:linear-gradient(135deg,var(--brand),#0069d9);
-  box-shadow:0 14px 30px rgba(0,133,253,.26);
-}
-.btn-next:hover{
-  transform:translateY(-2px);
-  box-shadow:0 18px 36px rgba(0,133,253,.32);
-}
-.btn-back{
-  background:white;
-  color:#334155;
-  border:1px solid #dbe3ef;
-}
-.btn-back:hover{
-  transform:translateY(-2px);
-  background:#f8fafc;
-}
+    .noise {
+      position: absolute;
+      inset: 0;
+      opacity: .035;
+      mix-blend-mode: multiply;
+      background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+    }
 
-/* Mobile */
-@media(max-width:768px){
-  body{padding:78px 14px 30px}
-  .glass-card{
-    padding:24px;
-    border-radius:26px;
-  }
-  .step-label{display:none}
-  .step-icon{
-    width:40px;
-    height:40px;
-    font-size:.85rem;
-  }
-  .step-wrapper::before,
-  .step-progress-line{
-    top:19px;
-  }
-  .d-flex.justify-content-between{
-    gap:12px;
-  }
-  .btn-next,
-  .btn-back{
-    width:100%;
-    padding:12px 18px;
-  }
-}
-</style>
+    .floating-pill {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .62);
+      border: 1px solid rgba(255, 255, 255, .75);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 14px 38px rgba(15, 23, 42, .08);
+      color: rgba(15, 23, 42, .58);
+      font-size: .82rem;
+      font-weight: 700;
+      animation: floatPill 8s ease-in-out infinite;
+    }
+
+    .pill-1 { top: 130px; left: 8%; }
+    .pill-2 { top: 230px; right: 9%; animation-delay: -2s; }
+    .pill-3 { bottom: 110px; left: 11%; animation-delay: -4s; }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(26px, 36px, 0) scale(1.05); }
+    }
+
+    @keyframes floatPill {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+
+    /* ===================== TOP BAR ===================== */
+    .top-shell {
+      max-width: 1080px;
+      margin: 0 auto 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px 8px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .62);
+      border: 1px solid rgba(255, 255, 255, .8);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--brand), #005fc9);
+      box-shadow: 0 10px 20px rgba(0, 133, 253, .24);
+      font-weight: 800;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      border: 1px solid rgba(255, 255, 255, .86);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(0, 133, 253, .25);
+    }
+
+    /* ===================== HERO ===================== */
+    .header-text {
+      max-width: 980px;
+      margin: 0 auto 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .64);
+      border: 1px solid rgba(255, 255, 255, .84);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+      color: var(--brand-dark);
+      font-size: .84rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 6.2rem);
+      line-height: .92;
+      letter-spacing: -.08em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #003b7a 0%, var(--brand) 46%, #47b5ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 20px 70px rgba(0, 133, 253, .15);
+    }
+
+    .header-text h3 {
+      max-width: 760px;
+      margin: 18px auto 0;
+      font-size: clamp(.98rem, 2vw, 1.16rem);
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin: 24px auto 0;
+    }
+
+    .stat-card {
+      padding: 15px 16px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .60);
+      border: 1px solid rgba(255, 255, 255, .82);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, .06);
+      text-align: left;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.12rem;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    /* ===================== STEPPER ===================== */
+    .step-wrapper {
+      width: 100%;
+      max-width: 940px;
+      margin: 0 auto 28px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      position: relative;
+      gap: 10px;
+      padding: 0 4px;
+    }
+
+    .step-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 9%;
+      right: 9%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(226, 232, 240, .88);
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, .06);
+      z-index: 1;
+    }
+
+    .step-progress-line {
+      position: absolute;
+      top: 24px;
+      left: 9%;
+      height: 4px;
+      width: 0%;
+      max-width: 82%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), var(--yellow));
+      box-shadow: 0 8px 24px rgba(0, 133, 253, .20);
+      z-index: 2;
+      transition: width .5s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .step-item {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .step-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, .88);
+      border: 2px solid #dbe7f5;
+      color: #94a3b8;
+      font-size: .94rem;
+      font-weight: 800;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .07);
+      transition: .3s ease;
+    }
+
+    .step-label {
+      margin-top: 10px;
+      font-size: .76rem;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: .01em;
+      transition: .3s ease;
+    }
+
+    .step-item.active .step-icon {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), #0069d9);
+      border-color: rgba(255, 255, 255, .55);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: var(--shadow-brand);
+    }
+
+    .step-item.active .step-label { color: var(--brand-dark); }
+
+    .step-item.completed .step-icon {
+      color: #fff;
+      background: linear-gradient(135deg, var(--success), #059669);
+      border-color: rgba(255, 255, 255, .55);
+    }
+
+    .step-item.completed .step-label { color: #059669; }
+
+    /* ===================== FORM CARD ===================== */
+    .glass-card {
+      position: relative;
+      max-width: 940px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 42px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .88), rgba(255, 255, 255, .72));
+      border: 1px solid rgba(255, 255, 255, .82);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow:
+        0 10px 40px rgba(15, 23, 42, .05),
+        0 35px 90px rgba(0, 133, 253, .10),
+        inset 0 1px 0 rgba(255, 255, 255, .9);
+      overflow: hidden;
+      animation: cardIn .55s ease both;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.96), transparent);
+    }
+
+    .glass-card::after {
+      content: '';
+      position: absolute;
+      top: -130px;
+      right: -120px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 133, 253, .12), transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-content { display: none; position: relative; z-index: 2; }
+
+    .step-content.active {
+      display: block;
+      animation: fadeUp .38s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      margin-bottom: 26px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(226, 232, 240, .86);
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--ink);
+    }
+
+    .section-title p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 600;
+      font-size: .94rem;
+    }
+
+    /* ===================== INPUTS ===================== */
+    .form-label {
+      font-weight: 800;
+      font-size: .92rem;
+      margin-bottom: 8px;
+      color: #172033;
+    }
+
+    .sub-text {
+      font-size: .80rem;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .text-danger { color: var(--danger) !important; }
+
+    .form-control,
+    .form-select {
+      min-height: 54px;
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid #dce6f3;
+      border-radius: 17px;
+      padding: 13px 16px;
+      color: var(--ink);
+      font-weight: 600;
+      transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease, background .22s ease;
+    }
+
+    .form-control::placeholder { color: #9aa7b8; }
+
+    .form-control:hover,
+    .form-select:hover {
+      border-color: #bfd0e5;
+      background: rgba(255, 255, 255, .96);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 5px rgba(0, 133, 253, .13);
+      transform: translateY(-1px);
+      background: #fff;
+    }
+
+    .form-check {
+      min-height: 58px;
+      padding: 16px 18px 16px 48px;
+      border-radius: 19px;
+      background: rgba(255, 255, 255, .75);
+      border: 1px solid rgba(220, 230, 243, .95);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .045);
+      transition: .22s ease;
+    }
+
+    .form-check:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 133, 253, .30);
+      box-shadow: 0 16px 34px rgba(0, 133, 253, .08);
+    }
+
+    .form-check-input {
+      width: 19px;
+      height: 19px;
+      margin-left: -30px;
+      margin-top: 3px;
+      border-color: #bcc9da;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--brand);
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(0, 133, 253, .12);
+    }
+
+    .form-check-label {
+      color: #26344d;
+      font-weight: 700;
+    }
+
+    /* ===================== CUSTOMER / FAMILY CARDS ===================== */
+    .customer-card {
+      padding: 26px;
+      margin-bottom: 22px;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .70));
+      border: 1px solid rgba(225, 234, 245, .95);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, .07);
+    }
+
+    .customer-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      color: var(--brand-dark);
+      background: rgba(0, 133, 253, .09);
+      font-size: .98rem;
+      font-weight: 800;
+    }
+
+    .customer-title i { color: var(--brand); }
+
+    #familyDetails {
+      display: none;
+      padding: 26px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(248,251,255,.75));
+      border: 1px solid rgba(225,234,245,.95);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    /* ===================== BUTTONS ===================== */
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn-next,
+    .btn-back {
+      min-height: 52px;
+      border-radius: 999px;
+      padding: 13px 30px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      transition: transform .24s ease, box-shadow .24s ease, background .24s ease;
+    }
+
+    .btn-next {
+      border: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), #0069d9);
+      box-shadow: 0 16px 36px rgba(0, 133, 253, .26);
+    }
+
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px rgba(0, 133, 253, .32);
+      color: #fff;
+    }
+
+    .btn-next.success {
+      background: linear-gradient(135deg, var(--success), #059669);
+      box-shadow: 0 16px 36px rgba(18, 185, 129, .24);
+    }
+
+    .btn-back {
+      color: #334155;
+      background: rgba(255, 255, 255, .78);
+      border: 1px solid #dce6f3;
+    }
+
+    .btn-back:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .06);
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      body { padding: 22px 14px 38px; }
+
+      .top-shell {
+        align-items: flex-start;
+      }
+
+      .brand-badge span { display: none; }
+
+      .header-text { margin-top: 8px; }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-pill { display: none; }
+
+      .step-wrapper {
+        gap: 4px;
+        margin-bottom: 22px;
+      }
+
+      .step-label { display: none; }
+
+      .step-icon {
+        width: 42px;
+        height: 42px;
+        font-size: .84rem;
+      }
+
+      .step-wrapper::before,
+      .step-progress-line { top: 20px; }
+
+      .glass-card {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      .customer-card,
+      #familyDetails {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .action-row {
+        flex-direction: column-reverse;
+      }
+
+      .btn-next,
+      .btn-back {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lux-bg" aria-hidden="true">
+    <div class="gradient-sphere sphere-1"></div>
+    <div class="gradient-sphere sphere-2"></div>
+    <div class="gradient-sphere sphere-3"></div>
+    <div class="gradient-sphere sphere-4"></div>
+    <div class="mesh-lines"></div>
+    <div class="noise"></div>
+    <div class="floating-pill pill-1"><i class="fa-solid fa-sparkles"></i> Premium Experience</div>
+    <div class="floating-pill pill-2"><i class="fa-solid fa-shield-heart"></i> Secure Registration</div>
+    <div class="floating-pill pill-3"><i class="fa-solid fa-wand-magic-sparkles"></i> P-PAC Journey</div>
+  </div>
+
+  <div class="top-shell">
+    <div class="brand-badge">
+      <div class="brand-mark">P</div>
+      <span>P-PAC Registration Portal</span>
+    </div>
+
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
+      <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+    </div>
+  </div>
+
+  <div class="header-text">
+    <div class="eyebrow"><i class="fa-solid fa-fingerprint"></i> Dermatoglyphics Potential Analysis</div>
+    <h1>P-PAC</h1>
+    <h3 data-i18n="header-desc">ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา</h3>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <strong>01</strong>
+        <span data-i18n="stat-1">กรอกข้อมูลเป็นขั้นตอน</span>
+      </div>
+      <div class="stat-card">
+        <strong>02</strong>
+        <span data-i18n="stat-2">รองรับหลายผู้เข้ารับบริการ</span>
+      </div>
+      <div class="stat-card">
+        <strong>03</strong>
+        <span data-i18n="stat-3">ใช้งานได้ทั้ง TH / EN</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-wrapper">
+    <div class="step-progress-line" id="stepLine"></div>
+    <div class="step-item active" id="si-1">
+      <div class="step-icon">1</div>
+      <div class="step-label" data-i18n="s-bar-1">การจอง</div>
+    </div>
+    <div class="step-item" id="si-2">
+      <div class="step-icon">2</div>
+      <div class="step-label" data-i18n="s-bar-2">ข้อมูลส่วนตัว</div>
+    </div>
+    <div class="step-item" id="si-3">
+      <div class="step-icon">3</div>
+      <div class="step-label" data-i18n="s-bar-3">การติดต่อ</div>
+    </div>
+    <div class="step-item" id="si-4">
+      <div class="step-icon">4</div>
+      <div class="step-label" data-i18n="s-bar-4">ช่องทาง</div>
+    </div>
+    <div class="step-item" id="si-5">
+      <div class="step-icon">5</div>
+      <div class="step-label" data-i18n="s-bar-5">ประวัติ</div>
+    </div>
+  </div>
+
+  <div class="glass-card">
+    <form id="ppacForm" onsubmit="submitForm(event)">
+
+      <div id="step1" class="step-content active">
+        <div class="section-title">
+          <h2 data-i18n="step1-title">เริ่มต้นการลงทะเบียน</h2>
+          <p data-i18n="step1-desc">เลือกจำนวนผู้เข้ารับบริการ เพื่อให้ระบบเตรียมแบบฟอร์มให้เหมาะสม</p>
+        </div>
+
+        <div class="mb-5">
+          <label class="form-label" style="font-size: 1.05rem;"><span data-i18n="lbl-count">จำนวนผู้เข้ารับบริการ</span> <span class="text-danger">*</span></label>
+          <select class="form-select form-select-lg mt-2" id="customerCount" required>
+            <option value="1" data-i18n="opt-c1">1 ท่าน</option>
+            <option value="2" data-i18n="opt-c2">2 ท่าน</option>
+            <option value="3" data-i18n="opt-c3">3 ท่าน</option>
+            <option value="4" data-i18n="opt-c4">4 ท่าน</option>
+            <option value="5" data-i18n="opt-c5">5 ท่าน</option>
+            <option value="6" data-i18n="opt-c6">6 ท่าน</option>
+          </select>
+        </div>
+
+        <div class="action-row justify-content-end">
+          <button type="button" class="btn-next" data-i18n="btn-start" onclick="goToStep(2)">เริ่มลงทะเบียน ➔</button>
+        </div>
+      </div>
+
+      <div id="step2" class="step-content">
+        <div class="section-title">
+          <h2 data-i18n="step2-title">ข้อมูลส่วนตัว</h2>
+          <p data-i18n="step2-desc">กรอกข้อมูลผู้เข้ารับบริการให้ครบถ้วน เพื่อความถูกต้องของเอกสาร</p>
+        </div>
+
+        <div id="dynamicCustomersContainer"></div>
+
+        <div class="action-row">
+          <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(1)">ย้อนกลับ</button>
+          <button type="button" class="btn-next" data-i18n="btn-next" onclick="goToStep(3)">ถัดไป ➔</button>
+        </div>
+      </div>
+
+      <div id="step3" class="step-content">
+        <div class="section-title">
+          <h2 data-i18n="step3-title">ข้อมูลการติดต่อ</h2>
+          <p data-i18n="step3-desc">ระบุเบอร์โทรศัพท์และที่อยู่สำหรับจัดส่งเอกสาร</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-4">
+            <label class="form-label"><span data-i18n="lbl-phone">เบอร์โทรศัพท์</span> <span class="text-danger">*</span></label>
+            <span class="sub-text text-danger mb-2" data-i18n="sub-phone">* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง</span>
+            <input type="tel" class="form-control" required maxlength="10" placeholder="08xxxxxxxx">
+          </div>
+          <div class="col-md-12 mb-3">
+            <label class="form-label"><span data-i18n="lbl-addr">ที่อยู่จัดส่งเอกสาร</span> <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-prov">จังหวัด</label><input type="text" class="form-control" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label"><span data-i18n="lbl-zip">รหัสไปรษณีย์</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(2)">ย้อนกลับ</button>
+          <button type="button" class="btn-next" data-i18n="btn-next" onclick="goToStep(4)">ถัดไป ➔</button>
+        </div>
+      </div>
+
+      <div id="step4" class="step-content">
+        <div class="section-title">
+          <h2 data-i18n="step4-title">ช่องทางที่รู้จัก P-PAC</h2>
+          <p data-i18n="step4-desc">เลือกช่องทางที่ท่านทราบข้อมูล สามารถเลือกได้มากกว่า 1 ข้อ</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label mb-3"><span data-i18n="lbl-source">ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)</span></label>
+          <div class="row g-3">
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Youtube"><label class="form-check-label">Youtube</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Instagram"><label class="form-check-label">Instagram</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Website"><label class="form-check-label">Website</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Poster"><label class="form-check-label" data-i18n="cb-poster">โปสเตอร์โฆษณา</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Recommend"><label class="form-check-label" data-i18n="cb-rec">มีผู้แนะนำ</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="CP"><label class="form-check-label" data-i18n="cb-cp">พนักงานเครือ CP แนะนำ</label></div></div>
+            <div class="col-md-12"><div class="form-check"><input class="form-check-input" type="checkbox" value="Training"><label class="form-check-label" data-i18n="cb-train">เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม</label></div></div>
+          </div>
+
+          <div class="mt-4 row align-items-center g-2">
+            <div class="col-auto"><span class="fw-bold text-secondary" data-i18n="lbl-other">อื่นๆ:</span></div>
+            <div class="col-md-5"><input type="text" class="form-control"></div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(3)">ย้อนกลับ</button>
+          <button type="button" class="btn-next" data-i18n="btn-next" onclick="goToStep(5)">ถัดไป ➔</button>
+        </div>
+      </div>
+
+      <div id="step5" class="step-content">
+        <div class="section-title">
+          <h2 data-i18n="step5-title">ประวัติครอบครัว</h2>
+          <p data-i18n="step5-desc">แจ้งข้อมูลสมาชิกครอบครัวที่เคยเข้ารับบริการ เพื่อเชื่อมโยงข้อมูลให้ครบถ้วน</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label"><span data-i18n="lbl-family">ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่</span> <span class="text-danger">*</span></label>
+          <select class="form-select mt-2" id="hasFamily" onchange="toggleFamilySection()" required>
+            <option value="" data-i18n="opt-sel">-- โปรดเลือก --</option>
+            <option value="yes" data-i18n="opt-yes">มี</option>
+            <option value="no" data-i18n="opt-no">ไม่มี</option>
+          </select>
+        </div>
+
+        <div id="familyDetails">
+          <label class="form-label" data-i18n="lbl-fam-count">จำนวนสมาชิก</label>
+          <select class="form-select mb-4" id="familyCount" onchange="generateFamilyFields()">
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+            <option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+          </select>
+          <div id="familyMembersContainer"></div>
+        </div>
+
+        <div class="action-row mt-5">
+          <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(4)">ย้อนกลับ</button>
+          <button type="submit" class="btn-next success" data-i18n="btn-submit">✅ ยืนยันการส่งข้อมูล</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const translations = {
+      th: {
+        "header-desc": "ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา",
+        "stat-1": "กรอกข้อมูลเป็นขั้นตอน", "stat-2": "รองรับหลายผู้เข้ารับบริการ", "stat-3": "ใช้งานได้ทั้ง TH / EN",
+        "step1-title": "เริ่มต้นการลงทะเบียน", "step1-desc": "เลือกจำนวนผู้เข้ารับบริการ เพื่อให้ระบบเตรียมแบบฟอร์มให้เหมาะสม",
+        "step2-title": "ข้อมูลส่วนตัว", "step2-desc": "กรอกข้อมูลผู้เข้ารับบริการให้ครบถ้วน เพื่อความถูกต้องของเอกสาร",
+        "step3-title": "ข้อมูลการติดต่อ", "step3-desc": "ระบุเบอร์โทรศัพท์และที่อยู่สำหรับจัดส่งเอกสาร",
+        "step4-title": "ช่องทางที่รู้จัก P-PAC", "step4-desc": "เลือกช่องทางที่ท่านทราบข้อมูล สามารถเลือกได้มากกว่า 1 ข้อ",
+        "step5-title": "ประวัติครอบครัว", "step5-desc": "แจ้งข้อมูลสมาชิกครอบครัวที่เคยเข้ารับบริการ เพื่อเชื่อมโยงข้อมูลให้ครบถ้วน",
+        "s-bar-1": "การจอง", "s-bar-2": "ข้อมูลส่วนตัว", "s-bar-3": "การติดต่อ", "s-bar-4": "ช่องทาง", "s-bar-5": "ประวัติ",
+        "lbl-count": "จำนวนผู้เข้ารับบริการ", "opt-c1": "1 ท่าน", "opt-c2": "2 ท่าน", "opt-c3": "3 ท่าน", "opt-c4": "4 ท่าน", "opt-c5": "5 ท่าน", "opt-c6": "6 ท่าน",
+        "btn-start": "เริ่มลงทะเบียน ➔", "btn-next": "ถัดไป ➔", "btn-back": "ย้อนกลับ", "btn-submit": "✅ ยืนยันการส่งข้อมูล",
+        "lbl-phone": "เบอร์โทรศัพท์", "sub-phone": "* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง", "lbl-addr": "ที่อยู่ (บ้านเลขที่/หมู่บ้าน/ถนน)", "lbl-subdist": "แขวง/ตำบล", "lbl-dist": "เขต/อำเภอ", "lbl-prov": "จังหวัด", "lbl-zip": "รหัสไปรษณีย์",
+        "lbl-source": "ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)", "lbl-other": "อื่นๆ:", "cb-poster": "โปสเตอร์โฆษณา", "cb-rec": "มีผู้แนะนำ", "cb-cp": "พนักงานเครือ CP แนะนำ", "cb-train": "เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม",
+        "lbl-family": "ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่", "opt-sel": "-- โปรดเลือก --", "opt-yes": "มี", "opt-no": "ไม่มี", "lbl-fam-count": "จำนวนสมาชิก",
+        "dyn-title": "ผู้เข้ารับบริการท่านที่", "dyn-fam-title": "ท่านที่", "dyn-fam-placeholder": "ชื่อ - สกุล / ความสัมพันธ์",
+        "f-prefix": "คำนำหน้า", "f-name": "ชื่อ-สกุล", "f-email": "อีเมล", "f-dob": "วัน/เดือน/ปีเกิด", "f-id": "เลขบัตรประจำตัวประชาชน",
+        "f-id-sub": "*หากไม่ทราบกรุณากรอกเลข 0 จำนวน 13 หลัก", "f-career": "อาชีพ", "f-school": "ชื่อสถาบันการศึกษา", "f-office": "สถานที่ทำงาน", "f-office-sub": "**ไม่บังคับใส่", "f-pos": "ตำแหน่ง", "f-comp": "บริษัท",
+        "arr-prefix": ["-- เลือก --", "ด.ช.", "ด.ญ.", "นาย", "นาง", "น.ส.", "Other"],
+        "arr-career": ["-- เลือกอาชีพ --", "นักเรียน/นักศึกษา", "ครู อาจารย์/เจ้าหน้าที่สถานศึกษา", "พ่อบ้าน/แม่บ้าน", "รับราชการ / พนักงานรัฐวิสาหกิจ", "พนักงานบริษัท", "ธุรกิจส่วนตัว", "อาชีพอิสระ", "อื่นๆ"]
+      },
+      en: {
+        "header-desc": "Panyatara Potential Analysis Center: Dermatoglyphics Potential Analysis Service",
+        "stat-1": "Guided step-by-step form", "stat-2": "Multi-customer support", "stat-3": "TH / EN available",
+        "step1-title": "Start Registration", "step1-desc": "Choose the number of customers so the system can prepare the right form.",
+        "step2-title": "Personal Information", "step2-desc": "Complete customer information for accurate documentation.",
+        "step3-title": "Contact Information", "step3-desc": "Provide phone number and mailing address.",
+        "step4-title": "How You Found P-PAC", "step4-desc": "Select one or more channels where you heard about us.",
+        "step5-title": "Family History", "step5-desc": "Let us know if your family members have previously used our service.",
+        "s-bar-1": "Booking", "s-bar-2": "Personal", "s-bar-3": "Contact", "s-bar-4": "Source", "s-bar-5": "History",
+        "lbl-count": "Number of Customers", "opt-c1": "1 Person", "opt-c2": "2 Persons", "opt-c3": "3 Persons", "opt-c4": "4 Persons", "opt-c5": "5 Persons", "opt-c6": "6 Persons",
+        "btn-start": "Start ➔", "btn-next": "Next ➔", "btn-back": "Back", "btn-submit": "✅ Submit Form",
+        "lbl-phone": "Mobile No.", "sub-phone": "* For users under 20, please provide parent's phone number", "lbl-addr": "Address (No./Village/Street)", "lbl-subdist": "Sub-district", "lbl-dist": "District", "lbl-prov": "Province", "lbl-zip": "Zip Code",
+        "lbl-source": "How did you hear about us?", "lbl-other": "Other:", "cb-poster": "Poster Advertising", "cb-rec": "Referral", "cb-cp": "CP Group Staff", "cb-train": "Training Course",
+        "lbl-family": "Any family members used our services?", "opt-sel": "-- Select --", "opt-yes": "Yes", "opt-no": "No", "lbl-fam-count": "Family size",
+        "dyn-title": "Customer", "dyn-fam-title": "Person", "dyn-fam-placeholder": "Name / Relationship",
+        "f-prefix": "Title", "f-name": "Full Name", "f-email": "Email", "f-dob": "Date of Birth", "f-id": "ID Number",
+        "f-id-sub": "*If unknown, enter zero (0) 13 times", "f-career": "Career", "f-school": "School Name", "f-office": "Office", "f-office-sub": "**Optional", "f-pos": "Position", "f-comp": "Company",
+        "arr-prefix": ["-- Select --", "Master", "Miss", "Mr.", "Mrs.", "Ms.", "Other"],
+        "arr-career": ["-- Select Career --", "Student", "Teacher/School staff", "Househusband / Housewife", "Gov / State Officer", "Company Employee", "Business Owner", "Freelance", "Other"]
+      }
+    };
+
+    let currentLang = 'th';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) el.innerHTML = translations[lang][key];
+      });
+
+      if (document.getElementById('step2').classList.contains('active')) generateCustomerFields();
+      if (document.getElementById('step5').classList.contains('active') && document.getElementById('hasFamily').value === 'yes') generateFamilyFields();
+    }
+
+    function goToStep(num) {
+      if (num === 2) generateCustomerFields();
+
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + num).classList.add('active');
+
+      updateStepBar(num);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateStepBar(num) {
+      const percentage = ((num - 1) / (5 - 1)) * 82;
+      document.getElementById('stepLine').style.width = percentage + "%";
+
+      for (let i = 1; i <= 5; i++) {
+        const item = document.getElementById('si-' + i);
+        const icon = item.querySelector('.step-icon');
+        item.classList.remove('active', 'completed');
+
+        if (i < num) {
+          item.classList.add('completed');
+          icon.innerHTML = '<i class="fas fa-check"></i>';
+        } else if (i === num) {
+          item.classList.add('active');
+          icon.innerHTML = i;
+        } else {
+          icon.innerHTML = i;
+        }
+      }
+    }
+
+    function toggleCareerFields(selectObj, index) {
+      const val = selectObj.value;
+      const studentDiv = document.getElementById(`career-student-${index}`);
+      const officeDiv = document.getElementById(`career-office-${index}`);
+      studentDiv.style.display = (val == "1") ? 'block' : 'none';
+      officeDiv.style.display = (val && val != "1" && val != "3") ? 'block' : 'none';
+    }
+
+    function generateCustomerFields() {
+      const count = document.getElementById('customerCount').value;
+      const container = document.getElementById('dynamicCustomersContainer');
+      const lang = translations[currentLang];
+
+      let prefixOptions = "";
+      lang["arr-prefix"].forEach(opt => prefixOptions += `<option value="${opt}">${opt}</option>`);
+
+      let careerOptions = "";
+      lang["arr-career"].forEach((opt, idx) => careerOptions += `<option value="${idx === 0 ? '' : idx}">${opt}</option>`);
+
+      container.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        container.innerHTML += `
+          <div class="customer-card">
+            <div class="customer-title"><i class="fa-solid fa-user-check"></i>${lang["dyn-title"]} ${i}</div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">${lang["f-prefix"]} *</label>
+                <select class="form-select" required>${prefixOptions}</select>
+              </div>
+              <div class="col-md-8 mb-3">
+                <label class="form-label">${lang["f-name"]} *</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">${lang["f-email"]} *</label>
+                <input type="email" class="form-control" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">${lang["f-dob"]} *</label>
+                <input type="date" class="form-control" required>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label class="form-label">${lang["f-id"]} *</label>
+                <span class="sub-text text-danger mb-2">${lang["f-id-sub"]}</span>
+                <input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}">
+              </div>
+              <div class="col-md-12 mb-3">
+                <label class="form-label">${lang["f-career"]} *</label>
+                <select class="form-select" onchange="toggleCareerFields(this, ${i})" required>${careerOptions}</select>
+              </div>
+              <div class="col-md-12 mb-3" id="career-student-${i}" style="display: none;">
+                <label class="form-label">${lang["f-school"]}</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-md-12 mb-3" id="career-office-${i}" style="display: none;">
+                <label class="form-label">${lang["f-office"]} <span class="text-muted fw-normal">${lang["f-office-sub"]}</span></label>
+                <div class="row">
+                  <div class="col-md-6 mb-2"><input type="text" class="form-control" placeholder="${lang["f-pos"]}"></div>
+                  <div class="col-md-6"><input type="text" class="form-control" placeholder="${lang["f-comp"]}"></div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }
+    }
+
+    function toggleFamilySection() {
+      const hasFamily = document.getElementById('hasFamily').value;
+      const familyDetails = document.getElementById('familyDetails');
+      familyDetails.style.display = (hasFamily === 'yes') ? 'block' : 'none';
+      if (hasFamily === 'yes') generateFamilyFields();
+    }
+
+    function generateFamilyFields() {
+      const count = parseInt(document.getElementById('familyCount').value);
+      const container = document.getElementById('familyMembersContainer');
+      const lang = translations[currentLang];
+      container.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        container.innerHTML += `
+          <div class="mb-3">
+            <label class="form-label">${lang["dyn-fam-title"]} ${i}</label>
+            <input type="text" class="form-control" placeholder="${lang["dyn-fam-placeholder"]}">
+          </div>`;
+      }
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      alert(currentLang === 'th' ? "✅ ส่งข้อมูลลงทะเบียนสำเร็จ" : "✅ Registration Submitted Successfully");
+      location.reload();
+    }
+  </script>
+</body>
+</html>
