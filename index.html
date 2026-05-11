@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P-PAC Registration | แบบลงทะเบียน</title>
+    <title>P-PAC Registration Form</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
         :root {
             --bg-off-white: #F8F9FA;
             --text-primary: #111827;
-            --text-secondary: #6B7280;
+            --text-secondary: #4B5563;
             --accent-color: #2563EB; 
         }
 
@@ -24,7 +24,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
+            padding: 40px 15px;
         }
 
         .ambient-bg {
@@ -40,90 +40,74 @@
         .ambient-bg::before { width: 60vw; height: 60vw; background: #E0E7FF; top: -10%; left: -10%; }
         .ambient-bg::after { width: 50vw; height: 50vw; background: #F3E8FF; bottom: -10%; right: -10%; }
 
-        /* --- Language Switcher --- */
-        .lang-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            padding: 5px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        /* --- Header Text --- */
+        .header-text {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
         }
-        .lang-btn {
-            border: none;
-            background: transparent;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--text-secondary);
-        }
-        .lang-btn.active {
-            background-color: var(--accent-color);
-            color: white;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
-        }
+        .header-text h1 { font-size: 3rem; font-weight: 700; letter-spacing: 1px; color: var(--accent-color); margin-bottom: 10px; }
+        .header-text h3 { font-size: 1.25rem; font-weight: 500; color: var(--text-primary); margin-bottom: 5px; }
+        .header-text h4 { font-size: 1.1rem; font-weight: 400; color: var(--text-secondary); margin-top: 20px; }
 
-        .logo-header { text-align: center; margin-top: 40px; margin-bottom: 30px; }
-        .logo-header img {
-            height: 80px;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.08));
-        }
-
+        /* --- Glass Card --- */
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 1);
-            border-radius: 30px;
-            padding: 50px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.05);
-            max-width: 750px;
-            width: 90%;
-            margin: 20px auto;
+            border-radius: 24px;
+            padding: 40px 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            max-width: 900px;
+            width: 100%;
         }
 
+        /* --- Form Steps --- */
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .step.active { display: block; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .step-indicator { 
-            font-weight: 500; color: var(--accent-color); 
-            margin-bottom: 25px; font-size: 0.8rem; 
-            text-transform: uppercase; letter-spacing: 1.5px;
-            border-left: 3px solid var(--accent-color); padding-left: 15px;
+            font-weight: 600; color: var(--accent-color); 
+            margin-bottom: 25px; font-size: 0.9rem; 
+            text-transform: uppercase; letter-spacing: 1px;
+            border-left: 4px solid var(--accent-color); padding-left: 15px;
         }
 
-        h2 { font-weight: 300; font-size: 1.8rem; margin-bottom: 30px; }
-        .form-label { font-weight: 500; font-size: 0.85rem; margin-bottom: 8px; }
+        .form-label { font-weight: 500; font-size: 0.9rem; margin-bottom: 8px; color: var(--text-primary); }
         .form-control, .form-select { 
-            background-color: rgba(255, 255, 255, 0.6); 
-            border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 18px;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border: 1px solid #D1D5DB; border-radius: 10px; padding: 12px 16px;
         }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        
+        .sub-text { font-size: 0.8rem; color: #6B7280; font-weight: 400; display: block; margin-top: 4px; }
 
+        /* --- Buttons --- */
         .btn-next {
             background-color: var(--accent-color); color: white;
-            padding: 14px 40px; border-radius: 50px; border: none;
-            font-weight: 500; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-            transition: all 0.3s;
+            padding: 12px 35px; border-radius: 50px; border: none;
+            font-weight: 500; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); transition: all 0.3s;
         }
         .btn-next:hover { transform: translateY(-2px); background-color: #1D4ED8; color: white; }
         
         .btn-back {
-            color: var(--text-secondary); background: transparent; border: 1px solid #E5E7EB;
-            padding: 14px 30px; border-radius: 50px; transition: all 0.3s;
+            color: var(--text-secondary); background: transparent; border: 1px solid #D1D5DB;
+            padding: 12px 30px; border-radius: 50px; transition: all 0.3s;
         }
         .btn-back:hover { background: #F3F4F6; }
 
-        @media (max-width: 600px) {
+        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+
+        @media (max-width: 768px) {
             .glass-card { padding: 30px 20px; }
-            .hero h1 { font-size: 1.8rem; }
+            .header-text h1 { font-size: 2.5rem; }
+            .header-text h3 { font-size: 1.1rem; }
+            .header-text h4 { font-size: 1rem; }
         }
     </style>
 </head>
@@ -131,207 +115,122 @@
 
     <div class="ambient-bg"></div>
 
-    <div class="lang-switch">
-        <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
-        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+    <div class="header-text">
+        <h1>P-PAC</h1>
+        <h3>ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา</h3>
+        <h4>แบบฟอร์มลงทะเบียนเข้ารับบริการวิเคราะห์ศักยภาพบุคคล<br>(P-PAC Registration Form)</h4>
     </div>
 
-    <div class="container d-flex flex-column align-items-center">
-        <div class="logo-header">
-            <img src="https://drive.google.com/uc?id=1fLOl5QKO3ZXXsstn14_VB9G26hhPCzkQ" alt="P-PAC Logo" onerror="this.src='https://via.placeholder.com/200x80?text=P-PAC+LOGO'">
-        </div>
-
-        <div class="glass-card">
-            <h2 id="form-title">แบบลงทะเบียน <strong>P-PAC</strong></h2>
+    <div class="glass-card">
+        <form id="ppacForm" onsubmit="submitForm(event)">
             
-            <form id="ppacForm" onsubmit="submitForm(event)">
+            <div id="step1" class="step active">
+                <div class="step-indicator">Step 1: จำนวนผู้เข้ารับบริการ</div>
+                <div class="mb-5">
+                    <label class="form-label" style="font-size: 1.1rem;">จำนวนผู้เข้ารับบริการ (Number of Customers) <span class="text-danger">*</span></label>
+                    <select class="form-select form-select-lg mt-2" id="customerCount" required>
+                        <option value="1">1 ท่าน (1 Person)</option>
+                        <option value="2">2 ท่าน (2 Persons)</option>
+                        <option value="3">3 ท่าน (3 Persons)</option>
+                        <option value="4">4 ท่าน (4 Persons)</option>
+                        <option value="5">5 ท่าน (5 Persons)</option>
+                        <option value="6">6 ท่าน (6 Persons)</option>
+                    </select>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn-next" onclick="goToStep(2)">ถัดไป ➔</button>
+                </div>
+            </div>
+
+            <div id="step2" class="step">
+                <div class="step-indicator">Step 2: ข้อมูลผู้เข้ารับบริการ (Personal Information)</div>
+                <div id="dynamicCustomersContainer"></div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn-back" onclick="goToStep(1)">ย้อนกลับ</button>
+                    <button type="button" class="btn-next" onclick="goToStep(3)">ถัดไป ➔</button>
+                </div>
+            </div>
+
+            <div id="step3" class="step">
+                <div class="step-indicator">Step 3: ช่องทางการติดต่อ (Contact Information)</div>
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <label class="form-label">เบอร์โทรศัพท์ (Mobile No.) <span class="text-danger">*</span></label>
+                        <span class="sub-text text-danger mb-2">* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง (For the service recipient under 20 years of age, please provide a parent or guardian's phone number)</span>
+                        <input type="tel" class="form-control" required maxlength="10" placeholder="08XXXXXXXX">
+                    </div>
+                    
+                    <div class="col-md-12 mb-3"><label class="form-label">ที่อยู่จัดส่งเอกสาร (Address) <span class="text-danger">*</span></label><input type="text" class="form-control" placeholder="บ้านเลขที่ / หมู่บ้าน / ถนน" required></div>
+                    <div class="col-md-6 mb-3"><label class="form-label">แขวง/ตำบล (Sub-district)</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-3"><label class="form-label">เขต/อำเภอ (District)</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-3"><label class="form-label">จังหวัด (Province)</label><input type="text" class="form-control" required></div>
+                    <div class="col-md-6 mb-3"><label class="form-label">รหัสไปรษณีย์ (Zip Code) <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn-back" onclick="goToStep(2)">ย้อนกลับ</button>
+                    <button type="button" class="btn-next" onclick="goToStep(4)">ถัดไป ➔</button>
+                </div>
+            </div>
+
+            <div id="step4" class="step">
+                <div class="step-indicator">Step 4: ช่องทางการรู้จักเรา</div>
+                <div class="mb-4">
+                    <label class="form-label mb-3">ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)<br><span class="sub-text">(How do you know P-PAC? - You can choose more than one answer.)</span></label>
+                    <div class="checkbox-grid">
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Youtube"><label class="form-check-label">Youtube</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Instagram"><label class="form-check-label">Instagram</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Website"><label class="form-check-label">Website</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Poster"><label class="form-check-label">โปสเตอร์โฆษณา (Poster Advertising)</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="Recommend"><label class="form-check-label">มีผู้แนะนำ (Recommend by)</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" value="CP"><label class="form-check-label">พนักงานเครือ CP แนะนำ (Recommend by CP Group)</label></div>
+                        <div class="form-check" style="grid-column: 1 / -1;"><input class="form-check-input" type="checkbox" value="Training"><label class="form-check-label">เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม (Training Course)</label></div>
+                    </div>
+                    <div class="mt-3 d-flex align-items-center">
+                        <span class="me-2">Other:</span>
+                        <input type="text" class="form-control" style="max-width: 300px;" placeholder="โปรดระบุ...">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn-back" onclick="goToStep(3)">ย้อนกลับ</button>
+                    <button type="button" class="btn-next" onclick="goToStep(5)">ถัดไป ➔</button>
+                </div>
+            </div>
+
+            <div id="step5" class="step">
+                <div class="step-indicator">Step 5: ประวัติการรับบริการ</div>
+                <div class="mb-4">
+                    <label class="form-label">ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่ <span class="text-danger">*</span><br>
+                    <span class="sub-text">(Do you have members of the same family who have received services?)</span></label>
+                    <select class="form-select mt-2" id="hasFamily" onchange="toggleFamilySection()" required>
+                        <option value="">-- โปรดเลือก (Select) --</option>
+                        <option value="yes">มี (Yes)</option>
+                        <option value="no">ไม่มี (No)</option>
+                    </select>
+                </div>
                 
-                <div id="step1" class="step active">
-                    <div class="step-indicator" id="step1-tag">ขั้นตอนที่ 1: ข้อมูลเบื้องต้น</div>
-                    <div class="mb-4">
-                        <label class="form-label" id="lbl-email">อีเมล (Email Address) *</label>
-                        <input type="email" class="form-control" id="email" required placeholder="name@example.com">
-                    </div>
-                    <div class="mb-5">
-                        <label class="form-label" id="lbl-count">จำนวนผู้เข้ารับบริการ *</label>
-                        <select class="form-select" id="customerCount" required>
-                            <option value="1">1 ท่าน (1 Person)</option>
-                            <option value="2">2 ท่าน (2 Persons)</option>
-                            <option value="3">3 ท่าน (3 Persons)</option>
-                            <option value="4">4 ท่าน (4 Persons)</option>
-                        </select>
-                    </div>
-                    <div class="text-end">
-                        <button type="button" class="btn-next btn-txt-next" onclick="goToStep(2)">ถัดไป ➔</button>
-                    </div>
+                <div id="familyDetails" style="display: none; background: rgba(0,0,0,0.02); padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <label class="form-label">จำนวนสมาชิก (Number of members)</label>
+                    <select class="form-select mb-4" id="familyCount" onchange="generateFamilyFields()">
+                        <option value="1">1 ท่าน</option>
+                        <option value="2">2 ท่าน</option>
+                        <option value="3">3 ท่าน</option>
+                    </select>
+                    <div id="familyMembersContainer"></div>
                 </div>
 
-                <div id="step2" class="step">
-                    <div class="step-indicator" id="step2-tag">ขั้นตอนที่ 2: ข้อมูลส่วนตัว</div>
-                    <div id="dynamicCustomersContainer"></div>
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn-back btn-txt-back" onclick="goToStep(1)">ย้อนกลับ</button>
-                        <button type="button" class="btn-next btn-txt-next" onclick="goToStep(3)">ถัดไป ➔</button>
-                    </div>
+                <div class="d-flex justify-content-between mt-5">
+                    <button type="button" class="btn-back" onclick="goToStep(4)">ย้อนกลับ</button>
+                    <button type="submit" class="btn-next" style="background-color: #10B981; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);">✅ ยืนยันการส่งข้อมูล (Submit)</button>
                 </div>
+            </div>
 
-                <div id="step3" class="step">
-                    <div class="step-indicator" id="step3-tag">ขั้นตอนที่ 3: สถานที่ติดต่อ</div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3"><label class="form-label" id="lbl-phone">เบอร์โทรศัพท์ *</label><input type="tel" class="form-control" required maxlength="10"></div>
-                        <div class="col-md-6 mb-3"><label class="form-label" id="lbl-zip">รหัสไปรษณีย์ *</label><input type="text" class="form-control" required maxlength="5"></div>
-                        <div class="col-md-12 mb-3"><label class="form-label" id="lbl-addr">ที่อยู่ (เลขที่บ้าน/หมู่บ้าน) *</label><input type="text" class="form-control" required></div>
-                        <div class="col-md-4 mb-3"><label class="form-label" id="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
-                        <div class="col-md-4 mb-3"><label class="form-label" id="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
-                        <div class="col-md-4 mb-3"><label class="form-label" id="lbl-prov">จังหวัด</label><input type="text" class="form-control" required></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn-back btn-txt-back" onclick="goToStep(2)">ย้อนกลับ</button>
-                        <button type="button" class="btn-next btn-txt-next" onclick="goToStep(4)">ถัดไป ➔</button>
-                    </div>
-                </div>
-
-                <div id="step4" class="step">
-                    <div class="step-indicator" id="step4-tag">ขั้นตอนที่ 4: ข้อมูลเพิ่มเติม</div>
-                    <div class="mb-4">
-                        <label class="form-label" id="lbl-source">รู้จักเราผ่านช่องทางใด</label>
-                        <div class="d-flex gap-3 flex-wrap">
-                            <div class="form-check"><input class="form-check-input" type="checkbox" value="FB"><label class="form-check-label text-secondary">Facebook</label></div>
-                            <div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label text-secondary">Line@</label></div>
-                            <div class="form-check"><input class="form-check-input" type="checkbox" value="Rec"><label class="form-check-label text-secondary" id="txt-rec">ผู้แนะนำ</label></div>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" id="lbl-family">เคยมีบุคคลในครอบครัวรับบริการหรือไม่? *</label>
-                        <select class="form-select" id="hasFamily" onchange="toggleFamilyFields()" required>
-                            <option value="" id="opt-select">-- โปรดเลือก --</option>
-                            <option value="no" id="opt-no">ไม่มี (No)</option>
-                            <option value="yes" id="opt-yes">มี (Yes)</option>
-                        </select>
-                    </div>
-                    <div id="familyDetails" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                        <input type="text" class="form-control mb-3" id="in-famname" placeholder="ชื่อสมาชิกและสถานะความสัมพันธ์">
-                        <input type="text" class="form-control" id="in-famid" placeholder="เลขบัตรประชาชนผู้แนะนำ" maxlength="13">
-                    </div>
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="button" class="btn-back btn-txt-back" onclick="goToStep(3)">ย้อนกลับ</button>
-                        <button type="submit" id="btn-submit" class="btn-next" style="background-color: #10B981; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);">ยืนยันลงทะเบียน (Confirm)</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
+        </form>
     </div>
 
     <script>
-        let currentLang = 'th';
-
-        const translations = {
-            th: {
-                title: "แบบลงทะเบียน <strong>P-PAC</strong>",
-                step1Tag: "ขั้นตอนที่ 1: ข้อมูลเบื้องต้น",
-                step2Tag: "ขั้นตอนที่ 2: ข้อมูลส่วนตัว",
-                step3Tag: "ขั้นตอนที่ 3: สถานที่ติดต่อ",
-                step4Tag: "ขั้นตอนที่ 4: ข้อมูลเพิ่มเติม",
-                email: "อีเมล (Email Address) *",
-                count: "จำนวนผู้เข้ารับบริการ *",
-                next: "ถัดไป ➔",
-                back: "ย้อนกลับ",
-                phone: "เบอร์โทรศัพท์ *",
-                zip: "รหัสไปรษณีย์ *",
-                addr: "ที่อยู่ (เลขที่บ้าน/หมู่บ้าน) *",
-                subdist: "แขวง/ตำบล",
-                dist: "เขต/อำเภอ",
-                prov: "จังหวัด",
-                source: "รู้จักเราผ่านช่องทางใด",
-                rec: "ผู้แนะนำ",
-                family: "เคยมีบุคคลในครอบครัวรับบริการหรือไม่? *",
-                select: "-- โปรดเลือก --",
-                no: "ไม่มี (No)",
-                yes: "มี (Yes)",
-                famname: "ชื่อสมาชิกและสถานะความสัมพันธ์",
-                famid: "เลขบัตรประชาชนผู้แนะนำ",
-                submit: "ยืนยันลงทะเบียน (Confirm)",
-                success: "✅ ขอบคุณสำหรับการลงทะเบียน ข้อมูลของคุณถูกส่งเรียบร้อยแล้ว",
-                custTitle: "ผู้เข้ารับบริการท่านที่",
-                prefix: "คำนำหน้า",
-                name: "ชื่อ-สกุล",
-                dob: "วัน/เดือน/ปีเกิด",
-                idcard: "เลขบัตรประชาชน",
-                career: "อาชีพ / ระดับชั้นเรียน"
-            },
-            en: {
-                title: "<strong>P-PAC</strong> Registration",
-                step1Tag: "Step 1: Initial Info",
-                step2Tag: "Step 2: Personal Details",
-                step3Tag: "Step 3: Contact & Address",
-                step4Tag: "Step 4: Additional",
-                email: "Email Address *",
-                count: "Number of Customers *",
-                next: "Next ➔",
-                back: "Back",
-                phone: "Mobile Phone *",
-                zip: "Zip Code *",
-                addr: "Address (House No. / Village) *",
-                subdist: "Sub-district",
-                dist: "District",
-                prov: "Province",
-                source: "How did you hear about us?",
-                rec: "Referral",
-                family: "Have family members used our service? *",
-                select: "-- Please Select --",
-                no: "No",
-                yes: "Yes",
-                famname: "Member name and Relationship",
-                famid: "Referrer ID Number",
-                submit: "Confirm Registration",
-                success: "✅ Thank you! Your registration is complete.",
-                custTitle: "Customer No.",
-                prefix: "Title",
-                name: "Full Name",
-                dob: "Date of Birth",
-                idcard: "ID Number",
-                career: "Career / Grade"
-            }
-        };
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('btn-th').classList.toggle('active', lang === 'th');
-            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-
-            const t = translations[lang];
-            document.getElementById('form-title').innerHTML = t.title;
-            document.getElementById('step1-tag').innerText = t.step1Tag;
-            document.getElementById('step2-tag').innerText = t.step2Tag;
-            document.getElementById('step3-tag').innerText = t.step3Tag;
-            document.getElementById('step4-tag').innerText = t.step4Tag;
-            document.getElementById('lbl-email').innerText = t.email;
-            document.getElementById('lbl-count').innerText = t.count;
-            document.getElementById('lbl-phone').innerText = t.phone;
-            document.getElementById('lbl-zip').innerText = t.zip;
-            document.getElementById('lbl-addr').innerText = t.addr;
-            document.getElementById('lbl-subdist').innerText = t.subdist;
-            document.getElementById('lbl-dist').innerText = t.dist;
-            document.getElementById('lbl-prov').innerText = t.prov;
-            document.getElementById('lbl-source').innerText = t.source;
-            document.getElementById('txt-rec').innerText = t.rec;
-            document.getElementById('lbl-family').innerText = t.family;
-            document.getElementById('opt-select').innerText = t.select;
-            document.getElementById('opt-no').innerText = t.no;
-            document.getElementById('opt-yes').innerText = t.yes;
-            document.getElementById('in-famname').placeholder = t.famname;
-            document.getElementById('in-famid').placeholder = t.famid;
-            document.getElementById('btn-submit').innerText = t.submit;
-            
-            document.querySelectorAll('.btn-txt-next').forEach(b => b.innerText = t.next);
-            document.querySelectorAll('.btn-txt-back').forEach(b => b.innerText = t.back);
-
-            if (document.getElementById('step2').classList.contains('active')) {
-                generateCustomerFields();
-            }
-        }
-
+        // เปลี่ยนหน้า Step
         function goToStep(num) {
             if (num === 2) generateCustomerFields();
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
@@ -339,34 +238,137 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // เช็คการเปลี่ยน Title (ถ้าเลือก Other ให้แสดงช่องกรอก)
+        function checkTitle(selectObj, index) {
+            const otherDiv = document.getElementById(`title-other-${index}`);
+            if (selectObj.value === "Other") {
+                otherDiv.style.display = "block";
+                otherDiv.querySelector('input').required = true;
+            } else {
+                otherDiv.style.display = "none";
+                otherDiv.querySelector('input').required = false;
+            }
+        }
+
+        // สร้างฟอร์มตามจำนวนผู้รับบริการ (Step 2)
         function generateCustomerFields() {
             const count = document.getElementById('customerCount').value;
             const container = document.getElementById('dynamicCustomersContainer');
-            const t = translations[currentLang];
             container.innerHTML = ''; 
+            
             for(let i = 1; i <= count; i++) {
                 container.innerHTML += `
-                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.4); border: 1px solid #E5E7EB; border-radius: 18px;">
-                        <div class="mb-3" style="font-weight: 600; color: var(--accent-color); font-size: 0.9rem;">${t.custTitle} ${i}</div>
+                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.6); border: 1px solid #E5E7EB; border-radius: 16px;">
+                        <h5 class="mb-4" style="color: var(--accent-color); font-weight: 600;">ผู้เข้ารับบริการท่านที่ ${i} (Customer ${i})</h5>
+                        
                         <div class="row">
-                            <div class="col-md-4 mb-3"><label class="form-label">${t.prefix} *</label><select class="form-select" required><option value="">--</option><option>Mr.</option><option>Mrs.</option><option>Ms.</option><option>Master</option></select></div>
-                            <div class="col-md-8 mb-3"><label class="form-label">${t.name} *</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">${t.dob} *</label><input type="date" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">${t.idcard} *</label><input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}"></div>
-                            <div class="col-md-12 mb-3"><label class="form-label">${t.career} *</label><input type="text" class="form-control" required></div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">คำนำหน้า (Title Name) <span class="text-danger">*</span></label>
+                                <select class="form-select" onchange="checkTitle(this, ${i})" required>
+                                    <option value="">-- เลือก --</option>
+                                    <option value="ด.ช.">ด.ช. (Master)</option>
+                                    <option value="ด.ญ.">ด.ญ. (Miss)</option>
+                                    <option value="นาย">นาย (Mr.)</option>
+                                    <option value="นาง">นาง (Mrs.)</option>
+                                    <option value="น.ส.">น.ส. (Miss)</option>
+                                    <option value="Other">Other:</option>
+                                </select>
+                                <div id="title-other-${i}" style="display:none; margin-top:10px;">
+                                    <input type="text" class="form-control" placeholder="โปรดระบุคำนำหน้า">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 mb-3"><label class="form-label">ชื่อ-สกุล (Name - Surname) <span class="text-danger">*</span></label><input type="text" class="form-control" required></div>
+                            <div class="col-md-6 mb-3"><label class="form-label">อีเมล (Email) <span class="text-danger">*</span></label><input type="email" class="form-control" placeholder="example@mail.com" required></div>
+                            <div class="col-md-6 mb-3"><label class="form-label">วัน/เดือน/ปีเกิด (Date of Birth) <span class="text-danger">*</span></label><input type="date" class="form-control" required></div>
+                            
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">เลขบัตรประจำตัวประชาชน (National ID Card Number) <span class="text-danger">*</span></label>
+                                <span class="sub-text text-danger mb-2">*หากไม่ทราบกรุณากรอกเลข 0 จำนวน 13 หลัก<br>(If you don't have National ID Card Number, please enter the number zero (0) thirteen times i.e. 0000000000000)</span>
+                                <input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}" placeholder="0000000000000">
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">อาชีพ (Career) <span class="text-danger">*</span></label>
+                                <select class="form-select" onchange="toggleCareerFields(this, ${i})" required>
+                                    <option value="">-- เลือกอาชีพ (Select) --</option>
+                                    <option value="student">นักเรียน/นักศึกษา (Student)</option>
+                                    <option value="teacher">ครู อาจารย์/เจ้าหน้าที่สถานศึกษา (Teacher/School staff)</option>
+                                    <option value="housewife">พ่อบ้าน/แม่บ้าน (Househusband / Housewife)</option>
+                                    <option value="gov">รับราชการ (Government Employee) / พนักงานรัฐวิสาหกิจ (State Enterprise Officer)</option>
+                                    <option value="company">พนักงานบริษัท (Company Employee)</option>
+                                    <option value="self">ธุรกิจส่วนตัว (Self-Employee)</option>
+                                    <option value="freelance">อาชีพอิสระ (Freelance)</option>
+                                    <option value="other">อื่น ๆ (Other)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 mb-3" id="career-student-${i}" style="display: none;">
+                                <label class="form-label">ชื่อสถาบันการศึกษา (at)</label>
+                                <input type="text" class="form-control" placeholder="ชื่อโรงเรียนหรือมหาวิทยาลัย">
+                            </div>
+
+                            <div class="col-md-12 mb-3" id="career-office-${i}" style="display: none;">
+                                <label class="form-label">สถานที่ทำงาน (Office) <span class="text-muted fw-normal">**ไม่บังคับใส่ (Optional)</span></label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-2"><input type="text" class="form-control" placeholder="ตำแหน่ง (Position)"></div>
+                                    <div class="col-md-6"><input type="text" class="form-control" placeholder="บริษัท (Company)"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>`;
             }
         }
 
-        function toggleFamilyFields() {
-            const val = document.getElementById('hasFamily').value;
-            document.getElementById('familyDetails').style.display = val === 'yes' ? 'block' : 'none';
+        // Logic เปิด/ปิด ช่องทำงานและเรียน
+        function toggleCareerFields(selectObj, index) {
+            const val = selectObj.value;
+            const studentDiv = document.getElementById(`career-student-${index}`);
+            const officeDiv = document.getElementById(`career-office-${index}`);
+
+            studentDiv.style.display = 'none';
+            officeDiv.style.display = 'none';
+
+            if (val === 'student') {
+                studentDiv.style.display = 'block';
+            } else if (val && val !== 'housewife') {
+                officeDiv.style.display = 'block';
+            }
         }
 
+        // Logic Step 5
+        function toggleFamilySection() {
+            const hasFamily = document.getElementById('hasFamily').value;
+            const familyDetails = document.getElementById('familyDetails');
+            
+            if (hasFamily === 'yes') {
+                familyDetails.style.display = 'block';
+                generateFamilyFields(); // สร้างฟิลด์อัตโนมัติ 1 ท่านก่อน
+            } else {
+                familyDetails.style.display = 'none';
+            }
+        }
+
+        function generateFamilyFields() {
+            const count = document.getElementById('familyCount').value;
+            const container = document.getElementById('familyMembersContainer');
+            container.innerHTML = '';
+
+            for(let i = 1; i <= count; i++) {
+                let suffix = i === 1 ? "1st" : (i === 2 ? "2nd" : "3rd");
+                container.innerHTML += `
+                    <div class="mb-3">
+                        <label class="form-label">ท่านที่ ${i} (${suffix} Service Recipient)</label>
+                        <input type="text" class="form-control" placeholder="ชื่อ - สกุล / ความสัมพันธ์ (Name and Surname / Relationship)">
+                    </div>
+                `;
+            }
+        }
+
+        // กด Submit
         function submitForm(event) {
             event.preventDefault();
-            alert(translations[currentLang].success);
+            alert("✅ ยืนยันการส่งข้อมูลสำเร็จ (Registration Completed)");
             location.reload();
         }
     </script>
