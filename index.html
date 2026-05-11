@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P-PAC | Potential Performance Analysis</title>
+    <title>P-PAC Registration</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        /* ================= ตัวแปรสีและ Global ================= */
+        /* ================= สีและสไตล์พื้นฐาน ================= */
         :root {
             --bg-off-white: #F8F9FA;
             --text-primary: #111827;
@@ -21,11 +21,14 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-off-white);
             color: var(--text-primary);
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center; /* จัดฟอร์มให้อยู่กลางหน้าจอแนวตั้ง */
+            padding: 40px 0;
         }
 
-        /* ================= พื้นหลังแสงออร่า ================= */
+        /* ================= พื้นหลังแสงออร่า (Ambient Effect) ================= */
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -34,55 +37,82 @@
         }
         .ambient-bg::before, .ambient-bg::after {
             content: ''; position: absolute; border-radius: 50%;
-            filter: blur(100px); opacity: 0.5;
+            filter: blur(100px); opacity: 0.4;
         }
-        .ambient-bg::before { width: 50vw; height: 50vw; background: #E0E7FF; top: -10%; left: -10%; }
-        .ambient-bg::after { width: 40vw; height: 40vw; background: #F3E8FF; bottom: -10%; right: -10%; }
+        .ambient-bg::before { width: 60vw; height: 60vw; background: #E0E7FF; top: -10%; left: -10%; }
+        .ambient-bg::after { width: 50vw; height: 50vw; background: #F3E8FF; bottom: -10%; right: -10%; }
 
-        /* ================= Layout & Hero ================= */
-        .hero {
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center; padding: 120px 0 80px 0;
+        /* ================= โลโก้ด้านบนฟอร์ม ================= */
+        .logo-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        .logo-container img { height: 100px; object-fit: contain; margin-bottom: 40px; }
-        .hero h1 { font-weight: 300; font-size: 3.5rem; letter-spacing: -0.03em; margin-bottom: 24px; }
-        .hero h1 strong { font-weight: 500; }
-        .hero p.subtitle { font-weight: 300; font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 48px auto; }
-
-        /* ================= ปุ่ม CTA ================= */
-        .btn-cta {
-            display: inline-block; background-color: var(--accent-color); color: #ffffff;
-            font-weight: 500; font-size: 1.1rem; text-decoration: none;
-            padding: 18px 48px; border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); transition: all 0.3s ease;
+        .logo-header img {
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));
         }
-        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4); background-color: #1D4ED8; color: white;}
 
-        /* ================= Glass Card & Form ================= */
+        /* ================= Glass Card (กล่องฟอร์ม) ================= */
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 24px; padding: 48px 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+            max-width: 750px;
+            width: 100%;
+            margin: auto;
         }
-        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06); }
-        
-        /* สไตล์พิเศษสำหรับฟอร์ม */
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .step-indicator { font-weight: 500; color: var(--accent-color); margin-bottom: 24px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;}
-        .form-control, .form-select { background-color: rgba(255, 255, 255, 0.8); border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 16px; }
-        .form-control:focus, .form-select:focus { box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1); border-color: var(--accent-color); }
-        .form-label { font-weight: 500; font-size: 0.9rem; color: var(--text-primary); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .glass-card { padding: 32px 24px; }
+        /* ================= Step Logic & UI ================= */
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .step-indicator { 
+            font-weight: 500; 
+            color: var(--accent-color); 
+            margin-bottom: 25px; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        /* ================= Form Elements ================= */
+        h2 { font-weight: 300; font-size: 1.8rem; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .form-label { font-weight: 500; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 8px; }
+        .form-control, .form-select { 
+            background-color: rgba(255, 255, 255, 0.6); 
+            border: 1px solid #E5E7EB; 
+            border-radius: 12px; 
+            padding: 12px 18px;
+            font-weight: 300;
+        }
+        .form-control:focus { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08); border-color: var(--accent-color); }
+
+        /* ================= Buttons ================= */
+        .btn-next {
+            background-color: var(--accent-color); color: white;
+            padding: 14px 40px; border-radius: 50px; border: none;
+            font-weight: 500; transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+        }
+        .btn-next:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(37, 99, 235, 0.3); background-color: #1D4ED8; }
+        
+        .btn-back {
+            color: var(--text-secondary); background: transparent; border: 1px solid #E5E7EB;
+            padding: 14px 30px; border-radius: 50px; font-weight: 400; transition: all 0.3s;
+        }
+        .btn-back:hover { background: #F3F4F6; color: var(--text-primary); }
+
+        @media (max-width: 600px) {
+            .glass-card { padding: 30px 20px; border-radius: 20px; }
+            body { padding: 20px; }
         }
     </style>
 </head>
@@ -90,156 +120,129 @@
 
     <div class="ambient-bg"></div>
 
-    <div class="container">
+    <div class="container d-flex flex-column align-items-center">
         
-        <section class="hero">
-            <div class="logo-container">
-                <img src="https://drive.google.com/uc?id=1fLOl5QKO3ZXXsstn14_VB9G26hhPCzkQ" alt="P-PAC Logo">
-            </div>
-            <h1>Unlock Your <strong>Potential</strong></h1>
-            <p class="subtitle">Experience the next generation of performance analysis. Seamless, secure, and designed with elegant simplicity.</p>
-            <a href="#register-section" class="btn-cta">Register Now</a>
-        </section>
+        <div class="logo-header">
+            <img src="https://drive.google.com/uc?id=1fLOl5QKO3ZXXsstn14_VB9G26hhPCzkQ" alt="P-PAC Logo">
+        </div>
 
-        <section id="register-section" style="padding-bottom: 120px;">
-            <div class="glass-card mx-auto" style="max-width: 800px;">
-                <h2 class="text-center mb-4" style="font-weight: 300;">Registration Form</h2>
+        <div class="glass-card">
+            <h2>Registration <strong>Form</strong></h2>
+            
+            <form id="ppacForm" onsubmit="submitForm(event)">
                 
-                <form id="ppacForm" onsubmit="submitForm(event)">
-                    
-                    <div id="step1" class="step active">
-                        <div class="step-indicator">Step 1 of 4: Initial Information</div>
-                        <div class="mb-3">
-                            <label class="form-label">Email Address <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" required placeholder="example@email.com">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">จำนวนผู้เข้ารับบริการ (Number of Customers) <span class="text-danger">*</span></label>
-                            <select class="form-select" id="customerCount" required>
-                                <option value="1">1 ท่าน</option><option value="2">2 ท่าน</option>
-                                <option value="3">3 ท่าน</option><option value="4">4 ท่าน</option>
-                            </select>
-                        </div>
-                        <div class="text-end">
-                            <button type="button" class="btn btn-cta" style="padding: 12px 32px;" onclick="goToStep(2)">Next ➔</button>
+                <div id="step1" class="step active">
+                    <div class="step-indicator">Step 1: Reservation Info</div>
+                    <div class="mb-4">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" id="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="mb-5">
+                        <label class="form-label">จำนวนผู้เข้ารับบริการ *</label>
+                        <select class="form-select" id="customerCount" required>
+                            <option value="1">1 ท่าน (1 Person)</option>
+                            <option value="2">2 ท่าน (2 Persons)</option>
+                            <option value="3">3 ท่าน (3 Persons)</option>
+                            <option value="4">4 ท่าน (4 Persons)</option>
+                        </select>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn-next" onclick="goToStep(2)">Continue ➔</button>
+                    </div>
+                </div>
+
+                <div id="step2" class="step">
+                    <div class="step-indicator">Step 2: Personal Details</div>
+                    <div id="dynamicCustomersContainer"></div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn-back" onclick="goToStep(1)">Back</button>
+                        <button type="button" class="btn-next" onclick="goToStep(3)">Continue ➔</button>
+                    </div>
+                </div>
+
+                <div id="step3" class="step">
+                    <div class="step-indicator">Step 3: Contact & Address</div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3"><label class="form-label">เบอร์โทรศัพท์มือถือ *</label><input type="tel" class="form-control" required maxlength="10"></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">รหัสไปรษณีย์ *</label><input type="text" class="form-control" required maxlength="5"></div>
+                        <div class="col-md-12 mb-3"><label class="form-label">บ้านเลขที่ / หมู่บ้าน *</label><input type="text" class="form-control" required></div>
+                        <div class="col-md-4 mb-3"><label class="form-label">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
+                        <div class="col-md-4 mb-3"><label class="form-label">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
+                        <div class="col-md-4 mb-3"><label class="form-label">จังหวัด</label><input type="text" class="form-control" required></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn-back" onclick="goToStep(2)">Back</button>
+                        <button type="button" class="btn-next" onclick="goToStep(4)">Continue ➔</button>
+                    </div>
+                </div>
+
+                <div id="step4" class="step">
+                    <div class="step-indicator">Step 4: Additional</div>
+                    <div class="mb-4">
+                        <label class="form-label">รู้จักเราผ่านช่องทางใด</label>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="FB"><label class="form-check-label text-secondary">Facebook</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label text-secondary">Line@</label></div>
+                            <div class="form-check"><input class="form-check-input" type="checkbox" value="Rec"><label class="form-check-label text-secondary">ผู้แนะนำ</label></div>
                         </div>
                     </div>
-
-                    <div id="step2" class="step">
-                        <div class="step-indicator">Step 2 of 4: Personal Information</div>
-                        <div id="dynamicCustomersContainer"></div>
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" onclick="goToStep(1)">⬅ Back</button>
-                            <button type="button" class="btn btn-cta" style="padding: 12px 32px;" onclick="goToStep(3)">Next ➔</button>
-                        </div>
+                    <div class="mb-4">
+                        <label class="form-label">เคยมีบุคคลในครอบครัวรับบริการหรือไม่? *</label>
+                        <select class="form-select" id="hasFamily" onchange="toggleFamilyFields()" required>
+                            <option value="">-- โปรดเลือก --</option>
+                            <option value="no">ไม่มี (No)</option>
+                            <option value="yes">มี (Yes)</option>
+                        </select>
                     </div>
-
-                    <div id="step3" class="step">
-                        <div class="step-indicator">Step 3 of 4: Contact & Address</div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3"><label class="form-label">เบอร์โทรศัพท์มือถือ <span class="text-danger">*</span></label><input type="tel" class="form-control" required pattern="[0-9]{10}"></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">รหัสไปรษณีย์ <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
-                            <div class="col-md-12 mb-3"><label class="form-label">บ้านเลขที่ / หมู่บ้าน <span class="text-danger">*</span></label><input type="text" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">ซอย</label><input type="text" class="form-control"></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">ถนน</label><input type="text" class="form-control"></div>
-                            <div class="col-md-4 mb-3"><label class="form-label">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-4 mb-3"><label class="form-label">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-4 mb-3"><label class="form-label">จังหวัด</label><input type="text" class="form-control" required></div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" onclick="goToStep(2)">⬅ Back</button>
-                            <button type="button" class="btn btn-cta" style="padding: 12px 32px;" onclick="goToStep(4)">Next ➔</button>
-                        </div>
+                    <div id="familyDetails" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                        <input type="text" class="form-control mb-3" placeholder="ชื่อสมาชิกและสถานะความสัมพันธ์">
+                        <input type="text" class="form-control" placeholder="เลขบัตรประชาชนผู้แนะนำ" maxlength="13">
                     </div>
-
-                    <div id="step4" class="step">
-                        <div class="step-indicator">Step 4 of 4: Additional Information</div>
-                        <div class="mb-4">
-                            <label class="form-label">ช่องทางการรู้จักเรา</label>
-                            <div class="d-flex gap-3 flex-wrap">
-                                <div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label text-secondary">Facebook</label></div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label text-secondary">Line@</label></div>
-                                <div class="form-check"><input class="form-check-input" type="checkbox" value="Recommend"><label class="form-check-label text-secondary">มีผู้แนะนำ</label></div>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">เคยมีบุคคลในครอบครัวรับบริการหรือไม่? <span class="text-danger">*</span></label>
-                            <select class="form-select" id="hasFamily" onchange="toggleFamilyFields()" required>
-                                <option value="">-- โปรดเลือก --</option>
-                                <option value="no">ไม่มี</option><option value="yes">มี</option>
-                            </select>
-                        </div>
-                        
-                        <div id="familyDetails" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                            <div class="mb-3">
-                                <label class="form-label">ชื่อสมาชิกที่เคยทำ และสถานะความสัมพันธ์</label>
-                                <input type="text" class="form-control" placeholder="เช่น นายสมชาย ใจดี / บิดา">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">เลขบัตรประจำตัวประชาชนของผู้แนะนำ</label>
-                                <input type="text" class="form-control" maxlength="13">
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" onclick="goToStep(3)">⬅ Back</button>
-                            <button type="submit" class="btn btn-cta" style="padding: 12px 32px; background-color: #10B981; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);">✅ Submit Form</button>
-                        </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn-back" onclick="goToStep(3)">Back</button>
+                        <button type="submit" class="btn-next" style="background-color: #10B981; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);">Confirm Registration</button>
                     </div>
+                </div>
 
-                </form>
-            </div>
-        </section>
-
+            </form>
+        </div>
     </div>
 
     <script>
-        // Smooth scroll สำหรับปุ่ม Get Started
-        document.querySelector('a[href="#register-section"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#register-section').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // ฟังก์ชันเปลี่ยนหน้า Step ของฟอร์ม
-        function goToStep(stepNumber) {
-            if (stepNumber === 2) generateCustomerFields();
+        function goToStep(num) {
+            if (num === 2) generateCustomerFields();
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-            document.getElementById('step' + stepNumber).classList.add('active');
+            document.getElementById('step' + num).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // สร้างช่องกรอกข้อมูลตามจำนวนคนที่เลือก
         function generateCustomerFields() {
             const count = document.getElementById('customerCount').value;
             const container = document.getElementById('dynamicCustomersContainer');
             container.innerHTML = ''; 
-
             for(let i = 1; i <= count; i++) {
                 container.innerHTML += `
-                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.5); border: 1px solid #E5E7EB; border-radius: 16px;">
-                        <h6 class="mb-3" style="color: var(--accent-color); font-weight: 600;">ผู้เข้ารับบริการท่านที่ ${i}</h6>
+                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.4); border: 1px solid #E5E7EB; border-radius: 18px;">
+                        <div class="mb-3" style="font-weight: 600; color: var(--accent-color); font-size: 0.9rem;">ท่านที่ ${i}</div>
                         <div class="row">
-                            <div class="col-md-3 mb-3"><label class="form-label">คำนำหน้า *</label><select class="form-select" required><option value="">เลือก</option><option value="ด.ช.">ด.ช.</option><option value="ด.ญ.">ด.ญ.</option><option value="นาย">นาย</option><option value="นาง">นาง</option><option value="น.ส.">น.ส.</option></select></div>
-                            <div class="col-md-9 mb-3"><label class="form-label">ชื่อ-สกุล *</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-6 mb-3"><label class="form-label">วัน/เดือน/ปีเกิด *</label><input type="date" class="form-control" max="${new Date().toISOString().split('T')[0]}" required></div>
+                            <div class="col-md-4 mb-3"><label class="form-label">คำนำหน้า *</label><select class="form-select" required><option value="">เลือก</option><option value="นาย">นาย</option><option value="นาง">นาง</option><option value="น.ส.">น.ส.</option><option value="ด.ช.">ด.ช.</option><option value="ด.ญ.">ด.ญ.</option></select></div>
+                            <div class="col-md-8 mb-3"><label class="form-label">ชื่อ-สกุล *</label><input type="text" class="form-control" required></div>
+                            <div class="col-md-6 mb-3"><label class="form-label">วัน/เดือน/ปีเกิด *</label><input type="date" class="form-control" required></div>
                             <div class="col-md-6 mb-3"><label class="form-label">เลขบัตร ปชช. *</label><input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}"></div>
-                            <div class="col-md-12 mb-3"><label class="form-label">อาชีพ / ระดับชั้นเรียน *</label><input type="text" class="form-control" required></div>
-                            <div class="col-md-12"><label class="form-label">สถานที่ทำงาน / สถาบันการศึกษา</label><input type="text" class="form-control"></div>
                         </div>
                     </div>`;
             }
         }
 
         function toggleFamilyFields() {
-            const hasFamily = document.getElementById('hasFamily').value;
-            document.getElementById('familyDetails').style.display = hasFamily === 'yes' ? 'block' : 'none';
+            const val = document.getElementById('hasFamily').value;
+            document.getElementById('familyDetails').style.display = val === 'yes' ? 'block' : 'none';
         }
 
         function submitForm(event) {
             event.preventDefault();
-            alert("✅ ขอบคุณสำหรับการลงทะเบียน! (ระบบ Demo)");
-            document.getElementById('ppacForm').reset();
-            goToStep(1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            alert("✅ ขอบคุณสำหรับการลงทะเบียน ข้อมูลของคุณถูกส่งเรียบร้อยแล้ว");
+            location.reload();
         }
     </script>
 </body>
