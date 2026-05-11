@@ -3,199 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P-PAC Registration Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>P-PAC | Potential Performance Analysis</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { background-color: #f4f7f6; font-family: 'Sarabun', sans-serif; }
-        .form-container { max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .step-indicator { font-weight: bold; color: #0d6efd; margin-bottom: 20px; }
+        /* ================= ตัวแปรสี (Color Variables) ================= */
+        :root {
+            --bg-off-white: #F8F9FA;
+            --text-primary: #111827; /* สีเทาเข้มเกือบดำ ดูพรีเมียมกว่าสีดำสนิท */
+            --text-secondary: #6B7280;
+            --accent-color: #2563EB; /* สีน้ำเงินสด (Bold Accent) สำหรับปุ่ม CTA */
+        }
+
+        /* ================= การตั้งค่าพื้นฐาน (Global) ================= */
+        * {
+            box-sizing: border-width;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-off-white);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ================= พื้นหลังแบบมีแสงออร่า เพื่อขับให้กระจกฝ้าชัดขึ้น ================= */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background: var(--bg-off-white);
+        }
+        .ambient-bg::before, .ambient-bg::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+        }
+        .ambient-bg::before {
+            width: 50vw; height: 50vw;
+            background: #E0E7FF; /* สีฟ้าอ่อนนวลๆ */
+            top: -10%; left: -10%;
+        }
+        .ambient-bg::after {
+            width: 40vw; height: 40vw;
+            background: #F3E8FF; /* สีม่วงอ่อนนวลๆ */
+            bottom: -10%; right: -10%;
+        }
+
+        /* ================= โครงสร้าง Layout ================= */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ================= Hero Section (หน้าแรกสุด) ================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 0 80px 0;
+        }
+
+        .logo-container img {
+            height: 100px; /* ปรับขนาดโลโก้ได้ที่นี่ */
+            object-fit: contain;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); /* เงาบางๆ ให้โลโก้ */
+        }
+
+        .hero h1 {
+            font-weight: 300; /* Thin Typography */
+            font-size: 3.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        .hero h1 strong {
+            font-weight: 500;
+        }
+
+        .hero p.subtitle {
+            font-weight: 300;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px auto;
+            line-height: 1.6;
+        }
+
+        /* ================= ปุ่ม Call to Action (CTA) ================= */
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 18px 48px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); /* เงาสีเดียวกับปุ่ม */
+            transition: all 0.3s ease;
+        }
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            background-color: #1D4ED8;
+        }
+
+        /* ================= Sections & Glass Cards ================= */
+        .section-padding {
+            padding: 100px 0; /* Generous white space */
+        }
+
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .glass-card {
+            /* Frosted-glass effect */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            
+            border-radius: 24px;
+            padding: 48px 40px;
+            
+            /* Soft elevation shadows */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+        }
+
+        .glass-card h3 {
+            font-weight: 500;
+            font-size: 1.35rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .glass-card p {
+            font-weight: 300;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ================= Mobile Responsive ================= */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p.subtitle { font-size: 1.1rem; padding: 0 20px; }
+            .glass-grid { gap: 24px; }
+            .glass-card { padding: 32px 24px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container form-container">
-    <h2 class="text-center mb-4">ฟอร์มลงทะเบียน P-PAC Registration</h2>
-    
-    <form id="ppacForm" onsubmit="submitForm(event)">
+    <div class="ambient-bg"></div>
+
+    <main class="container">
         
-        <div id="step1" class="step active">
-            <div class="step-indicator">ขั้นตอนที่ 1/4: ข้อมูลเบื้องต้นและการจอง</div>
-            <div class="mb-3">
-                <label class="form-label">ที่อยู่อีเมล <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" required placeholder="example@email.com">
-            </div>
-            <div class="mb-4">
-                <label class="form-label">จำนวนผู้เข้ารับบริการ <span class="text-danger">*</span></label>
-                <select class="form-select" id="customerCount" required>
-                    <option value="1">1 ท่าน</option>
-                    <option value="2">2 ท่าน</option>
-                    <option value="3">3 ท่าน</option>
-                    <option value="4">4 ท่าน</option>
-                </select>
-            </div>
-            <div class="text-end">
-                <button type="button" class="btn btn-primary" onclick="goToStep(2)">ถัดไป ➔</button>
-            </div>
-        </div>
-
-        <div id="step2" class="step">
-            <div class="step-indicator">ขั้นตอนที่ 2/4: ข้อมูลผู้เข้ารับบริการ</div>
-            
-            <div id="dynamicCustomersContainer"></div>
-
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-secondary" onclick="goToStep(1)">⬅ ย้อนกลับ</button>
-                <button type="button" class="btn btn-primary" onclick="goToStep(3)">ถัดไป ➔</button>
-            </div>
-        </div>
-
-        <div id="step3" class="step">
-            <div class="step-indicator">ขั้นตอนที่ 3/4: ข้อมูลสถานที่ติดต่อ</div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">เบอร์โทรศัพท์มือถือ <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control" id="phone" required pattern="[0-9]{10}" placeholder="08xxxxxxxx">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">รหัสไปรษณีย์ <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="zipcode" required maxlength="5">
-                </div>
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">บ้านเลขที่ / ชื่ออาคาร / หมู่บ้าน <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="addressLine1" required>
-                </div>
-                <div class="col-md-6 mb-3"><label class="form-label">ซอย</label><input type="text" class="form-control"></div>
-                <div class="col-md-6 mb-3"><label class="form-label">ถนน</label><input type="text" class="form-control"></div>
-                <div class="col-md-4 mb-3"><label class="form-label">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
-                <div class="col-md-4 mb-3"><label class="form-label">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
-                <div class="col-md-4 mb-3"><label class="form-label">จังหวัด</label><input type="text" class="form-control" required></div>
-            </div>
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-secondary" onclick="goToStep(2)">⬅ ย้อนกลับ</button>
-                <button type="button" class="btn btn-primary" onclick="goToStep(4)">ถัดไป ➔</button>
-            </div>
-        </div>
-
-        <div id="step4" class="step">
-            <div class="step-indicator">ขั้นตอนที่ 4/4: ข้อมูลเพิ่มเติม</div>
-            <div class="mb-3">
-                <label class="form-label">ช่องทางการรู้จักเรา (เลือกได้มากกว่า 1)</label>
-                <div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" value="Recommend"><label class="form-check-label">มีผู้แนะนำ</label></div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">สมาชิกที่เคยทำ (เคยมีบุคคลในครอบครัวรับบริการหรือไม่?) <span class="text-danger">*</span></label>
-                <select class="form-select" id="hasFamily" onchange="toggleFamilyFields()" required>
-                    <option value="">-- โปรดเลือก --</option>
-                    <option value="no">ไม่มี</option>
-                    <option value="yes">มี</option>
-                </select>
+        <section class="hero">
+            <div class="logo-container">
+                <img src="https://drive.google.com/uc?id=1fLOl5QKO3ZXXsstn14_VB9G26hhPCzkQ" alt="P-PAC Logo">
             </div>
             
-            <div id="familyDetails" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                <div class="mb-3">
-                    <label class="form-label">ชื่อสมาชิกที่เคยทำ และสถานะความสัมพันธ์</label>
-                    <input type="text" class="form-control" placeholder="เช่น นายสมชาย ใจดี / บิดา">
+            <h1>Unlock Your <strong>Potential</strong></h1>
+            <p class="subtitle">Experience the next generation of performance analysis. Seamless, secure, and designed with elegant simplicity.</p>
+            
+            <a href="#register" class="btn-cta">Get Started</a>
+        </section>
+
+        <section class="section-padding">
+            <div class="glass-grid">
+                
+                <div class="glass-card">
+                    <h3>Deep Analytics</h3>
+                    <p>Gain profound insights with our advanced algorithms. Every data point is presented with crystal clarity, removing the noise from your decision-making process.</p>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">เลขบัตรประจำตัวประชาชนของผู้แนะนำ / สมาชิกที่เคยทำ</label>
-                    <input type="text" class="form-control" maxlength="13">
+                
+                <div class="glass-card">
+                    <h3>Absolute Security</h3>
+                    <p>Your privacy is paramount. Enterprise-grade encryption wrapped in a beautiful interface ensures your data remains exclusively yours.</p>
                 </div>
+                
+                <div class="glass-card">
+                    <h3>Minimalist Workflow</h3>
+                    <p>We eliminated the clutter. Navigate through complex datasets with intuitive interactions designed to save time and reduce cognitive load.</p>
+                </div>
+
             </div>
+        </section>
 
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-secondary" onclick="goToStep(3)">⬅ ย้อนกลับ</button>
-                <button type="submit" class="btn btn-success">✅ ยืนยันการลงทะเบียน</button>
-            </div>
-        </div>
+    </main>
 
-    </form>
-</div>
-
-<script>
-    // ฟังก์ชันเปลี่ยนหน้า Step
-    function goToStep(stepNumber) {
-        if (stepNumber === 2) {
-            generateCustomerFields(); // สร้างฟอร์มผู้ใช้ตามจำนวนที่ระบุ
-        }
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('step' + stepNumber).classList.add('active');
-        window.scrollTo(0, 0);
-    }
-
-    // ฟังก์ชันสร้างช่องกรอกข้อมูลอัตโนมัติตามจำนวนคน
-    function generateCustomerFields() {
-        const count = document.getElementById('customerCount').value;
-        const container = document.getElementById('dynamicCustomersContainer');
-        container.innerHTML = ''; 
-
-        for(let i = 1; i <= count; i++) {
-            let html = `
-                <div class="card mb-4 border-primary">
-                    <div class="card-header bg-primary text-white fw-bold">ผู้เข้ารับบริการท่านที่ ${i}</div>
-                    <div class="card-body row">
-                        <div class="col-md-3 mb-3">
-                            <label class="form-label">คำนำหน้า <span class="text-danger">*</span></label>
-                            <select class="form-select" required>
-                                <option value="">เลือก</option>
-                                <option value="ด.ช.">ด.ช.</option><option value="ด.ญ.">ด.ญ.</option>
-                                <option value="นาย">นาย</option><option value="นาง">นาง</option><option value="น.ส.">น.ส.</option>
-                            </select>
-                        </div>
-                        <div class="col-md-9 mb-3">
-                            <label class="form-label">ชื่อ-สกุล <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">วัน/เดือน/ปีเกิด <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" max="${new Date().toISOString().split('T')[0]}" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">เลขบัตร ปชช. (หรือกรอก 0 สิบสามตัว) <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}">
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">อาชีพ / ระดับชั้นเรียน <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required placeholder="เช่น นักศึกษา, ธุรกิจส่วนตัว">
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <label class="form-label">สถานที่ทำงาน / สถาบันการศึกษา</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>`;
-            container.innerHTML += html;
-        }
-    }
-
-    // ฟังก์ชันซ่อน/แสดงช่องกรอกข้อมูลครอบครัว (Step 4)
-    function toggleFamilyFields() {
-        const hasFamily = document.getElementById('hasFamily').value;
-        const familyDetails = document.getElementById('familyDetails');
-        if (hasFamily === 'yes') {
-            familyDetails.style.display = 'block';
-        } else {
-            familyDetails.style.display = 'none';
-        }
-    }
-
-    // ฟังก์ชันจัดการตอนกด Submit
-    function submitForm(event) {
-        event.preventDefault(); // ป้องกันการรีเฟรชหน้า
-        
-        // ตรงนี้สามารถใส่ Logic ยิง API ไปยัง Google Apps Script, Formspree หรือ Backend ของคุณได้
-        alert("✅ ยืนยันการลงทะเบียนสำเร็จ! (นี่คือหน้า Demo ข้อมูลยังไม่ถูกส่งเข้า Database จริง)");
-        
-        // รีเซ็ตฟอร์มกลับไปหน้าแรก
-        document.getElementById('ppacForm').reset();
-        goToStep(1);
-    }
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
