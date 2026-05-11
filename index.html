@@ -119,35 +119,9 @@
       background-image: url("https://www.transparenttextures.com/patterns/noise.png");
     }
 
-    .floating-pill {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .62);
-      border: 1px solid rgba(255, 255, 255, .75);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 14px 38px rgba(15, 23, 42, .08);
-      color: rgba(15, 23, 42, .58);
-      font-size: .82rem;
-      font-weight: 700;
-      animation: floatPill 8s ease-in-out infinite;
-    }
-
-    .pill-1 { top: 130px; left: 8%; }
-    .pill-2 { top: 230px; right: 9%; animation-delay: -2s; }
-    .pill-3 { bottom: 110px; left: 11%; animation-delay: -4s; }
-
     @keyframes floatOrb {
       0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
       50% { transform: translate3d(26px, 36px, 0) scale(1.05); }
-    }
-
-    @keyframes floatPill {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-18px); }
     }
 
     /* ===================== TOP BAR ===================== */
@@ -258,39 +232,6 @@
       line-height: 1.8;
       color: var(--muted);
       font-weight: 600;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      max-width: 760px;
-      margin: 24px auto 0;
-    }
-
-    .stat-card {
-      padding: 15px 16px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, .60);
-      border: 1px solid rgba(255, 255, 255, .82);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, .06);
-      text-align: left;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 1.12rem;
-      color: var(--ink);
-      line-height: 1.1;
-    }
-
-    .stat-card span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: .82rem;
-      font-weight: 700;
     }
 
     /* ===================== STEPPER ===================== */
@@ -644,8 +585,6 @@
         grid-template-columns: 1fr;
       }
 
-      .floating-pill { display: none; }
-
       .step-wrapper {
         gap: 4px;
         margin-bottom: 22px;
@@ -693,9 +632,6 @@
     <div class="gradient-sphere sphere-4"></div>
     <div class="mesh-lines"></div>
     <div class="noise"></div>
-    <div class="floating-pill pill-1"><i class="fa-solid fa-sparkles"></i> Premium Experience</div>
-    <div class="floating-pill pill-2"><i class="fa-solid fa-shield-heart"></i> Secure Registration</div>
-    <div class="floating-pill pill-3"><i class="fa-solid fa-wand-magic-sparkles"></i> P-PAC Journey</div>
   </div>
 
   <div class="top-shell">
@@ -714,21 +650,6 @@
     <div class="eyebrow"><i class="fa-solid fa-fingerprint"></i> Dermatoglyphics Potential Analysis</div>
     <h1>P-PAC</h1>
     <h3 data-i18n="header-desc">ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา</h3>
-
-    <div class="hero-stats">
-      <div class="stat-card">
-        <strong>01</strong>
-        <span data-i18n="stat-1">กรอกข้อมูลเป็นขั้นตอน</span>
-      </div>
-      <div class="stat-card">
-        <strong>02</strong>
-        <span data-i18n="stat-2">รองรับหลายผู้เข้ารับบริการ</span>
-      </div>
-      <div class="stat-card">
-        <strong>03</strong>
-        <span data-i18n="stat-3">ใช้งานได้ทั้ง TH / EN</span>
-      </div>
-    </div>
   </div>
 
   <div class="step-wrapper">
@@ -892,7 +813,6 @@
     const translations = {
       th: {
         "header-desc": "ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา",
-        "stat-1": "กรอกข้อมูลเป็นขั้นตอน", "stat-2": "รองรับหลายผู้เข้ารับบริการ", "stat-3": "ใช้งานได้ทั้ง TH / EN",
         "step1-title": "เริ่มต้นการลงทะเบียน", "step1-desc": "เลือกจำนวนผู้เข้ารับบริการ เพื่อให้ระบบเตรียมแบบฟอร์มให้เหมาะสม",
         "step2-title": "ข้อมูลส่วนตัว", "step2-desc": "กรอกข้อมูลผู้เข้ารับบริการให้ครบถ้วน เพื่อความถูกต้องของเอกสาร",
         "step3-title": "ข้อมูลการติดต่อ", "step3-desc": "ระบุเบอร์โทรศัพท์และที่อยู่สำหรับจัดส่งเอกสาร",
@@ -912,7 +832,6 @@
       },
       en: {
         "header-desc": "Panyatara Potential Analysis Center: Dermatoglyphics Potential Analysis Service",
-        "stat-1": "Guided step-by-step form", "stat-2": "Multi-customer support", "stat-3": "TH / EN available",
         "step1-title": "Start Registration", "step1-desc": "Choose the number of customers so the system can prepare the right form.",
         "step2-title": "Personal Information", "step2-desc": "Complete customer information for accurate documentation.",
         "step3-title": "Contact Information", "step3-desc": "Provide phone number and mailing address.",
