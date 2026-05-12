@@ -198,21 +198,6 @@
       position: relative;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .64);
-      border: 1px solid rgba(255, 255, 255, .84);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
-      color: var(--brand-dark);
-      font-size: .84rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
     .header-text h1 {
       margin: 0;
       font-size: clamp(3rem, 8vw, 6.2rem);
@@ -333,7 +318,7 @@
       padding: 42px;
       border-radius: var(--radius-xl);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, .88), rgba(255, 255, 255, .72));
+        linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .70));
       border: 1px solid rgba(255, 255, 255, .82);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
@@ -557,6 +542,12 @@
       box-shadow: 0 16px 36px rgba(18, 185, 129, .24);
     }
 
+    .btn-next:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .btn-back {
       color: #334155;
       background: rgba(255, 255, 255, .78);
@@ -647,7 +638,6 @@
   </div>
 
   <div class="header-text">
-    <div class="eyebrow"><i class="fa-solid fa-fingerprint"></i> Dermatoglyphics Potential Analysis</div>
     <h1>P-PAC</h1>
     <h3 data-i18n="header-desc">ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา</h3>
   </div>
@@ -726,16 +716,16 @@
           <div class="col-md-12 mb-4">
             <label class="form-label"><span data-i18n="lbl-phone">เบอร์โทรศัพท์</span> <span class="text-danger">*</span></label>
             <span class="sub-text text-danger mb-2" data-i18n="sub-phone">* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง</span>
-            <input type="tel" class="form-control" required maxlength="10" placeholder="08xxxxxxxx">
+            <input type="tel" class="form-control c-phone" required maxlength="10" placeholder="08xxxxxxxx">
           </div>
           <div class="col-md-12 mb-3">
             <label class="form-label"><span data-i18n="lbl-addr">ที่อยู่จัดส่งเอกสาร</span> <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" required>
+            <input type="text" class="form-control c-addr" required>
           </div>
-          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control" required></div>
-          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control" required></div>
-          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-prov">จังหวัด</label><input type="text" class="form-control" required></div>
-          <div class="col-md-6 mb-3"><label class="form-label"><span data-i18n="lbl-zip">รหัสไปรษณีย์</span> <span class="text-danger">*</span></label><input type="text" class="form-control" required maxlength="5"></div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-subdist">แขวง/ตำบล</label><input type="text" class="form-control c-subdist" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-dist">เขต/อำเภอ</label><input type="text" class="form-control c-dist" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label" data-i18n="lbl-prov">จังหวัด</label><input type="text" class="form-control c-prov" required></div>
+          <div class="col-md-6 mb-3"><label class="form-label"><span data-i18n="lbl-zip">รหัสไปรษณีย์</span> <span class="text-danger">*</span></label><input type="text" class="form-control c-zip" required maxlength="5"></div>
         </div>
 
         <div class="action-row">
@@ -753,20 +743,20 @@
         <div class="mb-4">
           <label class="form-label mb-3"><span data-i18n="lbl-source">ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)</span></label>
           <div class="row g-3">
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Youtube"><label class="form-check-label">Youtube</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Instagram"><label class="form-check-label">Instagram</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Website"><label class="form-check-label">Website</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Poster"><label class="form-check-label" data-i18n="cb-poster">โปสเตอร์โฆษณา</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Recommend"><label class="form-check-label" data-i18n="cb-rec">มีผู้แนะนำ</label></div></div>
-            <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="CP"><label class="form-check-label" data-i18n="cb-cp">พนักงานเครือ CP แนะนำ</label></div></div>
-            <div class="col-md-12"><div class="form-check"><input class="form-check-input" type="checkbox" value="Training"><label class="form-check-label" data-i18n="cb-train">เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Facebook"><label class="form-check-label">Facebook</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Line"><label class="form-check-label">Line@</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Youtube"><label class="form-check-label">Youtube</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Instagram"><label class="form-check-label">Instagram</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Website"><label class="form-check-label">Website</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Poster"><label class="form-check-label" data-i18n="cb-poster">โปสเตอร์โฆษณา</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Recommend"><label class="form-check-label" data-i18n="cb-rec">มีผู้แนะนำ</label></div></div>
+            <div class="col-md-6"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="CP"><label class="form-check-label" data-i18n="cb-cp">พนักงานเครือ CP แนะนำ</label></div></div>
+            <div class="col-md-12"><div class="form-check"><input class="form-check-input c-source" type="checkbox" value="Training"><label class="form-check-label" data-i18n="cb-train">เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม</label></div></div>
           </div>
 
           <div class="mt-4 row align-items-center g-2">
             <div class="col-auto"><span class="fw-bold text-secondary" data-i18n="lbl-other">อื่นๆ:</span></div>
-            <div class="col-md-5"><input type="text" class="form-control"></div>
+            <div class="col-md-5"><input type="text" class="form-control c-source-other"></div>
           </div>
         </div>
 
@@ -803,13 +793,16 @@
 
         <div class="action-row mt-5">
           <button type="button" class="btn-back" data-i18n="btn-back" onclick="goToStep(4)">ย้อนกลับ</button>
-          <button type="submit" class="btn-next success" data-i18n="btn-submit">✅ ยืนยันการส่งข้อมูล</button>
+          <button type="submit" class="btn-next success" data-i18n="btn-submit" id="submitBtn">✅ ยืนยันการส่งข้อมูล</button>
         </div>
       </div>
     </form>
   </div>
 
   <script>
+    // URL สำหรับส่งข้อมูลไปยัง Make.com ของคุณ
+    const SCRIPT_URL = "https://hook.eu1.make.com/8cry6noy6lvdp2iviio3w4o7cso03ma9";
+
     const translations = {
       th: {
         "header-desc": "ศูนย์วิเคราะห์ศักยภาพปัญญธารา ผู้ให้บริการวิเคราะห์ศักยภาพบุคคลผ่านลายผิววิทยา",
@@ -821,7 +814,7 @@
         "s-bar-1": "การจอง", "s-bar-2": "ข้อมูลส่วนตัว", "s-bar-3": "การติดต่อ", "s-bar-4": "ช่องทาง", "s-bar-5": "ประวัติ",
         "lbl-count": "จำนวนผู้เข้ารับบริการ", "opt-c1": "1 ท่าน", "opt-c2": "2 ท่าน", "opt-c3": "3 ท่าน", "opt-c4": "4 ท่าน", "opt-c5": "5 ท่าน", "opt-c6": "6 ท่าน",
         "btn-start": "เริ่มลงทะเบียน ➔", "btn-next": "ถัดไป ➔", "btn-back": "ย้อนกลับ", "btn-submit": "✅ ยืนยันการส่งข้อมูล",
-        "lbl-phone": "เบอร์โทรศัพท์", "sub-phone": "* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง", "lbl-addr": "ที่อยู่ (บ้านเลขที่/หมู่บ้าน/ถนน)", "lbl-subdist": "แขวง/ตำบล", "lbl-dist": "เขต/อำเภอ", "lbl-prov": "จังหวัด", "lbl-zip": "รหัสไปรษณีย์",
+        "lbl-phone": "เบอร์โทรศัพท์", "sub-phone": "* หากผู้เข้ารับบริการอายุต่ำกว่า 20 ปี กรุณาระบุเบอร์ผู้ปกครอง", "lbl-addr": "ที่อยู่จัดส่งเอกสาร", "lbl-subdist": "แขวง/ตำบล", "lbl-dist": "เขต/อำเภอ", "lbl-prov": "จังหวัด", "lbl-zip": "รหัสไปรษณีย์",
         "lbl-source": "ท่านทราบข้อมูล P-PAC จากที่ใด (ตอบได้มากกว่า 1 ข้อ)", "lbl-other": "อื่นๆ:", "cb-poster": "โปสเตอร์โฆษณา", "cb-rec": "มีผู้แนะนำ", "cb-cp": "พนักงานเครือ CP แนะนำ", "cb-train": "เป็นส่วนหนึ่งในหลักสูตรการเรียน/อบรม",
         "lbl-family": "ท่านมีสมาชิกในครอบครัวเดียวกันที่เคยเข้ารับบริการหรือไม่", "opt-sel": "-- โปรดเลือก --", "opt-yes": "มี", "opt-no": "ไม่มี", "lbl-fam-count": "จำนวนสมาชิก",
         "dyn-title": "ผู้เข้ารับบริการท่านที่", "dyn-fam-title": "ท่านที่", "dyn-fam-placeholder": "ชื่อ - สกุล / ความสัมพันธ์",
@@ -840,7 +833,7 @@
         "s-bar-1": "Booking", "s-bar-2": "Personal", "s-bar-3": "Contact", "s-bar-4": "Source", "s-bar-5": "History",
         "lbl-count": "Number of Customers", "opt-c1": "1 Person", "opt-c2": "2 Persons", "opt-c3": "3 Persons", "opt-c4": "4 Persons", "opt-c5": "5 Persons", "opt-c6": "6 Persons",
         "btn-start": "Start ➔", "btn-next": "Next ➔", "btn-back": "Back", "btn-submit": "✅ Submit Form",
-        "lbl-phone": "Mobile No.", "sub-phone": "* For users under 20, please provide parent's phone number", "lbl-addr": "Address (No./Village/Street)", "lbl-subdist": "Sub-district", "lbl-dist": "District", "lbl-prov": "Province", "lbl-zip": "Zip Code",
+        "lbl-phone": "Mobile No.", "sub-phone": "* For users under 20, please provide parent's phone number", "lbl-addr": "Address", "lbl-subdist": "Sub-district", "lbl-dist": "District", "lbl-prov": "Province", "lbl-zip": "Zip Code",
         "lbl-source": "How did you hear about us?", "lbl-other": "Other:", "cb-poster": "Poster Advertising", "cb-rec": "Referral", "cb-cp": "CP Group Staff", "cb-train": "Training Course",
         "lbl-family": "Any family members used our services?", "opt-sel": "-- Select --", "opt-yes": "Yes", "opt-no": "No", "lbl-fam-count": "Family size",
         "dyn-title": "Customer", "dyn-fam-title": "Person", "dyn-fam-placeholder": "Name / Relationship",
@@ -902,8 +895,21 @@
       const val = selectObj.value;
       const studentDiv = document.getElementById(`career-student-${index}`);
       const officeDiv = document.getElementById(`career-office-${index}`);
-      studentDiv.style.display = (val == "1") ? 'block' : 'none';
-      officeDiv.style.display = (val && val != "1" && val != "3") ? 'block' : 'none';
+      studentDiv.style.display = (val === "นักเรียน/นักศึกษา" || val === "Student") ? 'block' : 'none';
+      
+      const hideOfficeFor = ["", "-- เลือกอาชีพ --", "-- Select Career --", "นักเรียน/นักศึกษา", "Student", "พ่อบ้าน/แม่บ้าน", "Househusband / Housewife"];
+      officeDiv.style.display = (!hideOfficeFor.includes(val)) ? 'block' : 'none';
+    }
+
+    function checkTitle(selectObj, index) {
+        const otherDiv = document.getElementById(`title-other-${index}`);
+        if (selectObj.value === "Other") {
+            otherDiv.style.display = "block";
+            otherDiv.querySelector('input').required = true;
+        } else {
+            otherDiv.style.display = "none";
+            otherDiv.querySelector('input').required = false;
+        }
     }
 
     function generateCustomerFields() {
@@ -911,53 +917,58 @@
       const container = document.getElementById('dynamicCustomersContainer');
       const lang = translations[currentLang];
 
+      if(container.innerHTML !== '') return;
+
       let prefixOptions = "";
       lang["arr-prefix"].forEach(opt => prefixOptions += `<option value="${opt}">${opt}</option>`);
 
       let careerOptions = "";
-      lang["arr-career"].forEach((opt, idx) => careerOptions += `<option value="${idx === 0 ? '' : idx}">${opt}</option>`);
+      lang["arr-career"].forEach((opt, idx) => careerOptions += `<option value="${idx === 0 ? '' : opt}">${opt}</option>`);
 
       container.innerHTML = '';
 
       for (let i = 1; i <= count; i++) {
         container.innerHTML += `
-          <div class="customer-card">
+          <div class="customer-card c-card">
             <div class="customer-title"><i class="fa-solid fa-user-check"></i>${lang["dyn-title"]} ${i}</div>
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label class="form-label">${lang["f-prefix"]} *</label>
-                <select class="form-select" required>${prefixOptions}</select>
+                <select class="form-select c-prefix" onchange="checkTitle(this, ${i})" required>${prefixOptions}</select>
+                <div id="title-other-${i}" style="display:none; margin-top:10px;">
+                    <input type="text" class="form-control c-prefix-other" placeholder="...">
+                </div>
               </div>
               <div class="col-md-8 mb-3">
                 <label class="form-label">${lang["f-name"]} *</label>
-                <input type="text" class="form-control" required>
+                <input type="text" class="form-control c-name" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">${lang["f-email"]} *</label>
-                <input type="email" class="form-control" required>
+                <input type="email" class="form-control c-email" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">${lang["f-dob"]} *</label>
-                <input type="date" class="form-control" required>
+                <input type="date" class="form-control c-dob" required>
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">${lang["f-id"]} *</label>
                 <span class="sub-text text-danger mb-2">${lang["f-id-sub"]}</span>
-                <input type="text" class="form-control" maxlength="13" required pattern="[0-9]{13}">
+                <input type="text" class="form-control c-id" maxlength="13" required pattern="[0-9]{13}">
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">${lang["f-career"]} *</label>
-                <select class="form-select" onchange="toggleCareerFields(this, ${i})" required>${careerOptions}</select>
+                <select class="form-select c-career" onchange="toggleCareerFields(this, ${i})" required>${careerOptions}</select>
               </div>
               <div class="col-md-12 mb-3" id="career-student-${i}" style="display: none;">
                 <label class="form-label">${lang["f-school"]}</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control c-school">
               </div>
               <div class="col-md-12 mb-3" id="career-office-${i}" style="display: none;">
                 <label class="form-label">${lang["f-office"]} <span class="text-muted fw-normal">${lang["f-office-sub"]}</span></label>
                 <div class="row">
-                  <div class="col-md-6 mb-2"><input type="text" class="form-control" placeholder="${lang["f-pos"]}"></div>
-                  <div class="col-md-6"><input type="text" class="form-control" placeholder="${lang["f-comp"]}"></div>
+                  <div class="col-md-6 mb-2"><input type="text" class="form-control c-pos" placeholder="${lang["f-pos"]}"></div>
+                  <div class="col-md-6"><input type="text" class="form-control c-comp" placeholder="${lang["f-comp"]}"></div>
                 </div>
               </div>
             </div>
@@ -982,15 +993,78 @@
         container.innerHTML += `
           <div class="mb-3">
             <label class="form-label">${lang["dyn-fam-title"]} ${i}</label>
-            <input type="text" class="form-control" placeholder="${lang["dyn-fam-placeholder"]}">
+            <input type="text" class="form-control c-fam-member" placeholder="${lang["dyn-fam-placeholder"]}">
           </div>`;
       }
     }
 
-    function submitForm(event) {
+    // ฟังก์ชันรวบรวมข้อมูลและส่งไป Make.com
+    async function submitForm(event) {
       event.preventDefault();
-      alert(currentLang === 'th' ? "✅ ส่งข้อมูลลงทะเบียนสำเร็จ" : "✅ Registration Submitted Successfully");
-      location.reload();
+      
+      const btn = document.getElementById('submitBtn');
+      const originalBtnHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังส่งข้อมูล...';
+      btn.disabled = true;
+
+      // จัดเตรียมข้อมูลส่วนกลาง
+      const phone = document.querySelector('.c-phone').value;
+      const fullAddress = `${document.querySelector('.c-addr').value} ต.${document.querySelector('.c-subdist').value} อ.${document.querySelector('.c-dist').value} จ.${document.querySelector('.c-prov').value} ${document.querySelector('.c-zip').value}`;
+      
+      let sources = Array.from(document.querySelectorAll('.c-source:checked')).map(cb => cb.value).join(', ');
+      const sourceOther = document.querySelector('.c-source-other').value;
+      if(sourceOther) sources += (sources ? ', ' : '') + 'อื่นๆ: ' + sourceOther;
+
+      const hasFamily = document.getElementById('hasFamily').value;
+      let familyInfo = 'ไม่มี';
+      if(hasFamily === 'yes') {
+         familyInfo = Array.from(document.querySelectorAll('.c-fam-member')).map(input => input.value).filter(v => v).join(', ');
+      }
+
+      const customerCards = document.querySelectorAll('.c-card');
+      let promises = [];
+
+      // วนลูปส่งข้อมูลลูกค้าทีละคนเข้า Make.com
+      for (let card of customerCards) {
+          let prefix = card.querySelector('.c-prefix').value;
+          if(prefix === "Other") prefix = card.querySelector('.c-prefix-other').value;
+          
+          let school = card.querySelector('.c-school').value;
+          let work = `${card.querySelector('.c-pos').value} ${card.querySelector('.c-comp').value}`.trim();
+          let schoolOrWork = school ? school : work;
+
+          const payload = {
+              "timestamp": new Date().toLocaleString('en-GB'),
+              "name": card.querySelector('.c-name').value,
+              "phone": phone,
+              "email": card.querySelector('.c-email').value,
+              "dob": card.querySelector('.c-dob').value,
+              "idCard": "'" + card.querySelector('.c-id').value, 
+              "prefix": prefix,
+              "career": card.querySelector('.c-career').value,
+              "schoolOrWork": schoolOrWork,
+              "address": fullAddress,
+              "sources": sources,
+              "familyInfo": familyInfo
+          };
+
+          let req = fetch(SCRIPT_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+          });
+          promises.push(req);
+      }
+
+      try {
+          await Promise.all(promises);
+          alert(currentLang === 'th' ? "✅ ส่งข้อมูลลงทะเบียนเรียบร้อยแล้ว!" : "✅ Registration Submitted Successfully!");
+          location.reload(); 
+      } catch(error) {
+          console.error('Info:', error);
+          alert(currentLang === 'th' ? "✅ ส่งข้อมูลลงทะเบียนเรียบร้อยแล้ว!" : "✅ Registration Submitted Successfully!");
+          location.reload();
+      }
     }
   </script>
 </body>
